@@ -103,6 +103,16 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "diarios-app:build:production",
+            "firebaseProject": "diario-viagens-6c73b",
+            "firebaseHostingSite": "diario-viagens-6c73b"
+          }
         }
       }
     }
