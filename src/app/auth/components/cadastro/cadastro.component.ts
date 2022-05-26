@@ -51,7 +51,18 @@ export class CadastroComponent implements OnInit {
       .subscribe();
   }
 
-  onLoginGoogle() {}
+  onLoginGoogle() {
+    this.authService
+      .loginGoogle()
+      .pipe(
+        this.toast.observe({
+          success: 'Login efetuado',
+          error: 'Operação cancelada',
+          loading: 'Fazendo login...',
+        })
+      )
+      .subscribe();
+  }
 
   ngOnInit(): void {}
 }

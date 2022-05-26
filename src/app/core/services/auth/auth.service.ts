@@ -4,9 +4,13 @@ import { doc, Firestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import {
   createUserWithEmailAndPassword,
+  GoogleAuthProvider,
+  sendEmailVerification,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
+  signInWithPopup,
 } from '@firebase/auth';
-import { collection, setDoc } from '@firebase/firestore';
+import { collection, setDoc, updateDoc } from '@firebase/firestore';
 import { from, tap } from 'rxjs';
 
 // Firebase Versão Modular
@@ -54,6 +58,8 @@ export class AuthService {
           nome: nome,
           nick: nick,
         });
+
+        this.emailVerificacao(creds.user);
       })
     );
   }
@@ -62,7 +68,11 @@ export class AuthService {
     // Realiza o login com base no email/senha
     // O return é necessário para o componente de login
     // usar subscribe e "saber" quando o login falhou
-    return from(signInWithEmailAndPassword(this.auth, email, password));
+    return from(signInWithEmailAndPassword(this.auth, email, password)).pipe(
+      tap((creds) => {
+        this.emailVerificacao(creds.user);
+      })
+    );
   }
 
   logout(rota: '/login' | '/confirmar-email') {
@@ -75,9 +85,40 @@ export class AuthService {
     );
   }
 
+  emailVerificacao(user: any) {
+    if (!user.emailVerified) {
+      sendEmailVerification(user);
+      this.logout('/confirmar-email').subscribe();
+    } else {
+      this.router.navigate(['/']);
+    }
+  }
+
+  loginGoogle() {
+    return from(signInWithPopup(this.auth, new GoogleAuthProvider())).pipe(
+      tap((creds) => {
+        const user = creds.user;
+        const userDoc = doc(this.usuarios, user.uid);
+        // updateDoc faz uma atualização parcial = atualiza apenas o que está diferente no doc do firebase
+        // updateDoc: só funciona se o doc já existe
+        setDoc(userDoc, {
+          uid: user.uid,
+          email: user.email,
+          nome: user.displayName, // 'displayName' contém o nome do usuário do google
+          nick: 'Um usuário do Google',
+        });
+
+        this.router.navigate(['/']);
+      })
+    );
+  }
+
+  recoverPassword(email: string) {
+    // com base no email do parâmetro envia um email para o usuário redefinir/resetar a senha
+    return from(sendPasswordResetEmail(this.auth, email));
+  }
+
   /** TODO
    * - VERIFICAR EMAIL
-   * - RECUPERAÇÃO DE SENHA
-   * - LOGIN COM GOOGLE
    */
 }

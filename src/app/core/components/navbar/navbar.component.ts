@@ -13,7 +13,7 @@ export class NavbarComponent implements OnInit {
   logged$?: Observable<any>;
 
   logout() {
-    this.authService.logout('/login');
+    this.authService.logout('/login').subscribe();
   }
 
   ngOnInit(): void {
