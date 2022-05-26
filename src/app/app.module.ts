@@ -11,6 +11,7 @@ import { provideStorage, getStorage } from '@angular/fire/storage';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
 import { AuthModule } from './auth/auth.module';
+import { HotToastModule } from '@ngneat/hot-toast';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,6 +25,9 @@ import { AuthModule } from './auth/auth.module';
     BrowserAnimationsModule,
     CoreModule,
     AuthModule, // As rotas em auth agora fazem parte do app
+    HotToastModule.forRoot({
+      position: 'bottom-center',
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent], // primeiro componente a ser exibido

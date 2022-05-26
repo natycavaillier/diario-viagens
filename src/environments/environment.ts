@@ -12,7 +12,7 @@ export const environment = {
     authDomain: 'diario-viagens-6c73b.firebaseapp.com',
     messagingSenderId: '167645777431',
   },
-  production: false
+  production: false,
 };
 
 /*

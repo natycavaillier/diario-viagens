@@ -1,15 +1,22 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss']
+  styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
+  constructor(private authService: AuthService) {}
 
-  constructor() { }
+  logged$?: Observable<any>;
 
-  ngOnInit(): void {
+  logout() {
+    this.authService.logout('/login');
   }
 
+  ngOnInit(): void {
+    this.logged$ = this.authService.logged;
+  }
 }

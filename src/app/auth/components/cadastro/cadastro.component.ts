@@ -5,6 +5,8 @@ import {
   ValidationErrors,
   Validators,
 } from '@angular/forms';
+import { HotToastService } from '@ngneat/hot-toast';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 
 @Component({
   selector: 'app-cadastro',
@@ -29,9 +31,25 @@ export class CadastroComponent implements OnInit {
       : null;
   }
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private toast: HotToastService
+  ) {}
 
-  onSubmit() {}
+  onSubmit() {
+    const { email, senha, nick, nome } = this.signupForm.value;
+    this.authService
+      .signupEmail(email, senha, nome, nick)
+      .pipe(
+        this.toast.observe({
+          success: 'Usuário criado com sucesso',
+          error: 'Um erro ocorreu',
+          loading: 'Criando usuário...',
+        })
+      )
+      .subscribe();
+  }
 
   onLoginGoogle() {}
 
