@@ -1,1 +1,16 @@
-<p>recuperar-senha works!</p>
+<div class="form-wrapper">
+  <form #form="ngForm" (ngSubmit)="onSubmit()">
+    <h2>Recuperação de senha</h2>
+    <span
+      >Um email será enviado para você com o processo de redefinir senha</span
+    >
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput placeholder="Seu email" type="email" name="email" [(ngModel)]="email" required />
+      <mat-icon matPrefix>email</mat-icon>
+    </mat-form-field>
+    <button mat-raised-button color="primary" [disabled]="form.invalid">
+      Enviar
+    </button>
+  </form>
+</div>

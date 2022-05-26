@@ -6,8 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./recuperar-senha.component.scss']
 })
 export class RecuperarSenhaComponent implements OnInit {
-
+  email: string = '';
   constructor() { }
+
+  onSubmit() {
+    
+  }
 
   ngOnInit(): void {
   }
