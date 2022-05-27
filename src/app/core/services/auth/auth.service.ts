@@ -117,8 +117,4 @@ export class AuthService {
     // com base no email do parâmetro envia um email para o usuário redefinir/resetar a senha
     return from(sendPasswordResetEmail(this.auth, email));
   }
-
-  /** TODO
-   * - VERIFICAR EMAIL
-   */
 }
