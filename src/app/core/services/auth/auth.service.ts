@@ -9,9 +9,10 @@ import {
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
+  User,
 } from '@firebase/auth';
 import { collection, setDoc, updateDoc } from '@firebase/firestore';
-import { from, tap } from 'rxjs';
+import { from, Observable, tap } from 'rxjs';
 
 // Firebase Versão Modular
 @Injectable({
