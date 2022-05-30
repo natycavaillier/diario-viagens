@@ -12,6 +12,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
 import { AuthModule } from './auth/auth.module';
 import { HotToastModule } from '@ngneat/hot-toast';
+import { DiariosModule } from './diarios/diarios.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,6 +26,7 @@ import { HotToastModule } from '@ngneat/hot-toast';
     BrowserAnimationsModule,
     CoreModule,
     AuthModule, // As rotas em auth agora fazem parte do app
+    DiariosModule,
     HotToastModule.forRoot({
       position: 'bottom-center',
     }),
