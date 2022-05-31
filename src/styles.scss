@@ -1,14 +1,30 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 .form-wrapper {
-    padding: 16px;
+  padding: 16px;
 }
 
 form {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.diario-add {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.diario-add mat-form-field {
+  width: 100%;
 }

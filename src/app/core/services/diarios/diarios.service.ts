@@ -5,8 +5,15 @@ import {
   Firestore,
   where,
 } from '@angular/fire/firestore';
-import { addDoc, collection, doc, query } from '@firebase/firestore';
-import { from, Observable, switchMap } from 'rxjs';
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  query,
+  updateDoc,
+} from '@firebase/firestore';
+import { first, from, Observable, switchMap } from 'rxjs';
 import { Diario, DiarioConverter } from '../../models/diario';
 import { AuthService } from '../auth/auth.service';
 import { UploadService } from '../upload/upload.service';
@@ -30,9 +37,16 @@ export class DiariosService {
   }
 
   getDiariosUsuario(): Observable<Diario[]> {
-    return collectionData(
-      query(this.diarios, where('usuarioId', '==', this.authService.uid)),
-      { idField: 'id' }
+    return this.authService.logged.pipe(
+      // pega informações do user logado
+      first(), // apenas a primeira informação de user
+      switchMap((user) => {
+        // cria um novo obs com base no filtro de user.uid
+        return collectionData(
+          query(this.diarios, where('usuarioId', '==', user?.uid)),
+          { idField: 'id' }
+        );
+      })
     );
   }
 
@@ -50,7 +64,8 @@ export class DiariosService {
     // foi necessário encadear com o uso do switchMap
     // Esse operador pode ser usado para encadear as informações necessárias.
     // user -> url -> diario
-    return this.authService.userData.pipe( // (1)
+    return this.authService.userData.pipe(
+      // (1)
       switchMap((user) => {
         return this.uploadService
           .upload(imagem, `diarios/${this.authService.uid}/`) // (2)
@@ -68,11 +83,30 @@ export class DiariosService {
       })
     );
   }
+
+  editDiario(diario: Diario, imagem?: File) {
+    const diarioDoc = doc(this.diarios, diario.id);
+    return this.uploadService
+      .upload(imagem, `diarios/${diario.usuarioId}/`)
+      .pipe(
+        switchMap((url) => {
+          return from(
+            updateDoc(diarioDoc, { ...diario, imagem: url ?? diario.imagem })
+          );
+        })
+      );
+  }
+
+  deleteDiario(diario: Diario) {
+    // Cria uma referência para o documento
+    const diarioDoc = doc(this.diarios, diario.id);
+    // Deleta o documento da coleção a apartir da referência
+    return from(deleteDoc(diarioDoc));
+  }
 }
 
 /**
  * ATUALIZAR DIÁRIO
- * DELETAR DIÁRIO
  */
 
 /**
