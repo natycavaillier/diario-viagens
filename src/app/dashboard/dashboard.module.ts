@@ -12,10 +12,17 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { WeekPostsComponent } from './components/week-posts/week-posts.component';
 import { CommonLocalsComponent } from './components/common-locals/common-locals.component';
 import { LastPostsComponent } from './components/last-posts/last-posts.component';
-
+import { MaterialModule } from '../shared/material.module';
+import { SharedModule } from '../shared/shared.module';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
-  declarations: [DashboardComponent, WeekPostsComponent, CommonLocalsComponent, LastPostsComponent],
+  declarations: [
+    DashboardComponent,
+    WeekPostsComponent,
+    CommonLocalsComponent,
+    LastPostsComponent,
+  ],
   imports: [
     CommonModule,
     DashboardRoutingModule,
@@ -24,7 +31,10 @@ import { LastPostsComponent } from './components/last-posts/last-posts.component
     MatMenuModule,
     MatIconModule,
     MatButtonModule,
-    LayoutModule
-  ]
+    LayoutModule,
+    MaterialModule,
+    SharedModule,
+    NgChartsModule
+  ],
 })
-export class DashboardModule { }
+export class DashboardModule {}
