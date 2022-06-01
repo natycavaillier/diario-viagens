@@ -1,1 +1,6 @@
-<p>common-locals works!</p>
+<div class="chart-wrapper" *ngIf="chartData$ | async as data">
+  <canvas baseChart type="pie" 
+    [data]="data" 
+    [options]="config">
+  </canvas>
+</div>
