@@ -1,1 +1,8 @@
-<p>last-posts works!</p>
+<mat-list>
+  <mat-list-item *ngFor="let diario of lastPosts$ | async">
+    <div mat-line>{{ diario.titulo }}</div>
+    <div mat-line>
+        {{ diario.usuarioName }} | {{diario.createdAt | date:'dd/MM/Y'}}
+    </div>
+  </mat-list-item>
+</mat-list>
