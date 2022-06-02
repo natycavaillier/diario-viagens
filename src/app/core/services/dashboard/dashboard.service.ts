@@ -5,7 +5,8 @@ import {
   limit,
   orderBy,
 } from '@angular/fire/firestore';
-import { collection, query } from '@firebase/firestore';
+import { collection, query, where } from '@firebase/firestore';
+import { endOfWeek, startOfWeek } from 'date-fns';
 import { map, Observable } from 'rxjs';
 import { Diario, DiarioConverter } from '../../models/diario';
 
@@ -39,6 +40,42 @@ export class DashboardService {
 
     locais.forEach((local) => {
       obj[local] = todosLocais.filter((loc) => loc === local).length;
+    });
+
+    return obj;
+  }
+
+  getWeekPosts() {
+    const hoje = new Date();
+    const start = startOfWeek(hoje);
+    const end = endOfWeek(hoje);
+
+    return collectionData(
+      query(
+        this.diarios,
+        where('createdAt', '>=', start),
+        where('createdAt', '<=', end)
+      )
+    ).pipe(map(this._weekPosts));
+  }
+
+  private _weekPosts(diarios: Diario[]) {
+    const weekdays = [
+      'Domingo', // 0
+      'Segunda', // 1
+      'Terça', // 2
+      'Quarta', // 3
+      'Quinta', // 4
+      'Sexta', // 5
+      'Sábado', // 6
+    ];
+
+    const dates = diarios.map((diario) => weekdays[diario.createdAt.getDay()]);
+
+    const obj: { [x: string]: number } = {};
+
+    weekdays.forEach((day) => {
+      obj[day] = dates.filter((dt) => dt === day).length;
     });
 
     return obj;
