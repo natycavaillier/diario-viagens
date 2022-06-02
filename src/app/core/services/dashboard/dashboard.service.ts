@@ -60,6 +60,7 @@ export class DashboardService {
   }
 
   private _weekPosts(diarios: Diario[]) {
+    // lodash
     const weekdays = [
       'Domingo', // 0
       'Segunda', // 1

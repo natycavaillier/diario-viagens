@@ -12,7 +12,7 @@ import {
   User,
 } from '@firebase/auth';
 import { collection, setDoc, updateDoc } from '@firebase/firestore';
-import { first, from, Observable, tap } from 'rxjs';
+import { first, from, map, Observable, switchMap, tap } from 'rxjs';
 
 // Firebase Versão Modular
 @Injectable({
@@ -43,6 +43,17 @@ export class AuthService {
     const userDoc = doc(this.usuarios, this.uid);
     // "Pega" apenas a primeira amostra de dados e encerra o observable
     return docData(userDoc).pipe(first());
+  }
+
+  get isAdmin() {
+    return authState(this.auth).pipe( // busca dados do auth do usuario logado
+      first(), // recebe apenas a primeira info
+      switchMap((user: any) => { // emite um novo obs com base no user
+        const userDoc = doc(this.usuarios, user?.uid);
+        return docData(userDoc).pipe(first()); // verifica o documento no banco 
+      }),
+      map((user) => user['isAdmin'] === true) /* verifica se o user logado possui a propriedade*/
+    );
   }
 
   usuarios = collection(this.db, 'usuarios'); // referencia possível coleção
