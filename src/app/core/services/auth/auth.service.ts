@@ -79,6 +79,10 @@ export class AuthService {
     );
   }
 
+
+
+  
+
   loginEmail(email: string, password: string) {
  
     return from(signInWithEmailAndPassword(this.auth, email, password)).pipe(
@@ -87,6 +91,10 @@ export class AuthService {
       })
     );
   }
+
+
+
+
 
   logout(rota: '/login' | '/confirmar-email') {
  
