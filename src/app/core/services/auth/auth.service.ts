@@ -83,6 +83,10 @@ export class AuthService {
     );
   }
 
+
+
+  
+
   loginEmail(email: string, password: string) {
     // Realiza o login com base no email/senha
     // O return é necessário para o componente de login
@@ -93,6 +97,10 @@ export class AuthService {
       })
     );
   }
+
+
+
+
 
   logout(rota: '/login' | '/confirmar-email') {
     // Desloga o usuário e ao final
