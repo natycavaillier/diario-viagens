@@ -1,16 +1,22 @@
 <mat-toolbar color="primary">
-  <span>Diários</span>
+  <a matTooltip="ir para página principal" 
+  matTooltipPosition="below" matTooltipShowDelay="1000" >Viagens</a>
+
   <span class="spacer"></span>
   <div *ngIf="logged$ | async; else unlogged" class="link-area">
-    <a mat-button routerLink="/diarios">Diários</a>
-    <button mat-icon-button (click)="logout()">
+    <a mat-button routerLink="/diarios" matTooltip="ir para seu diário" 
+    matTooltipPosition="below" matTooltipShowDelay="1000">Diários</a>
+    <button mat-icon-button (click)="logout()" matTooltip="Click para sair"
+    matTooltipPosition="below" matTooltipShowDelay="1000">
       <mat-icon>logout</mat-icon>
     </button>
   </div>
   <ng-template #unlogged>
     <div class="link-area">
-      <a mat-button routerLink="/login">Login</a>
-      <a mat-button routerLink="/cadastro">Cadastro</a>
+      <a mat-button routerLink="/login"matTooltip="Click para entrar" 
+      matTooltipPosition="below" matTooltipShowDelay="1000">Login</a>
+      <a mat-button routerLink="/cadastro"matTooltip="Click para criar uma conta" 
+      matTooltipPosition="below" matTooltipShowDelay="1000">Cadastro</a>
     </div>
   </ng-template>
 </mat-toolbar>
