@@ -13,7 +13,7 @@ import {
   query,
   updateDoc,
 } from '@firebase/firestore';
-import { first, from, Observable, switchMap } from 'rxjs';
+import { first, from, Observable, switchMap, tap } from 'rxjs';
 import { Diario, DiarioConverter } from '../../models/diario';
 import { AuthService } from '../auth/auth.service';
 import { UploadService } from '../upload/upload.service';
@@ -26,7 +26,7 @@ export class DiariosService {
     private db: Firestore,
     private authService: AuthService,
     private uploadService: UploadService
-  ) {}
+  ) { }
   // Referência a uma possível coleção do firestore
   diarios = collection(this.db, 'diarios').withConverter(DiarioConverter);
 
@@ -76,6 +76,7 @@ export class DiariosService {
               diario.usuarioId = this.authService.uid;
               diario.usuarioNick = user['nick'];
               diario.usuarioName = user['nome'];
+              diario.usersLiked = [];
 
               return from(addDoc(this.diarios, diario)); // (3)
             })
@@ -104,7 +105,50 @@ export class DiariosService {
     // Deleta o documento da coleção a apartir da referência
     return from(deleteDoc(diarioDoc));
   }
+
+  verificaIfAlreadyLiked(diario: Diario): Observable<boolean> {
+    return new Observable(emissor => {
+      if (diario.usersLiked.find(user => user == this.authService.uid)) {
+        emissor.next(true);
+      } else {
+        emissor.next(false)
+      }
+    })
+  }
+
+  likeDiario(diario: Diario, diarioJaCurtido: boolean) {
+    const diarioDoc = doc(this.diarios, diario.id);
+    const allUsersLiked: string[] = diario.usersLiked;
+
+
+    if (diarioJaCurtido) {
+      diario.usersLiked.splice(diario.usersLiked.indexOf(this.authService.uid!), 1);
+      return from(
+        updateDoc(diarioDoc, { ...diario, usersLiked: allUsersLiked }));
+
+    } else {
+      diario.usersLiked.push(this.authService.uid!);
+      return from(
+        updateDoc(diarioDoc, { ...diario, usersLiked: allUsersLiked }));
+    }
+
+
+    // if(qtdLikes == 0){
+
+    // }else{
+
+    // const diarioDoc = doc(this.diarios, diario.id);
+    // return from(
+    //   updateDoc(diarioDoc, { qtdLikes: diario.qtdLikes + 1})
+    //   );
+
+  }
+
+
+
+
 }
+
 
 /**
  * ATUALIZAR DIÁRIO

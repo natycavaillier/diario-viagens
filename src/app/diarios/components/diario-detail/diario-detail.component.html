@@ -10,6 +10,19 @@
       <small>{{ diario.data | date }} | {{ diario.local }}</small>
       <p>{{ diario.corpo }}</p>
     </mat-card-content>
+        <mat-card-actions style="display: inline;">
+          <button (click)="onClickLike(diario)" mat-icon-button color="primary">
+            <span *ngIf="diarioJaCurtido; else diarioNaoCurtido" class="material-symbols-outlined diarioCurtido">
+              thumb_up
+            </span>
+            <ng-template #diarioNaoCurtido>
+              <span class="material-symbols-outlined diarioNaoCurtido">
+                thumb_up
+              </span>
+            </ng-template>
+          </button>
+        </mat-card-actions>
+        <p class="curtidas">{{diario.usersLiked.length}} curtidas</p>
   </mat-card>
 </div>
 
