@@ -10,62 +10,62 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   User,
+  UserInfo,
+  UserCredential,
+  updateProfile,
 } from '@firebase/auth';
 import { collection, setDoc, updateDoc } from '@firebase/firestore';
-import { first, from, map, Observable, switchMap, tap } from 'rxjs';
+import { first, from, map, Observable, of, switchMap, tap, concatMap } from 'rxjs';
 
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  currentUser$ = authState(this.auth);
+
   constructor(
-    private auth: Auth, 
-    private db: Firestore, 
-    private router: Router 
+    private auth: Auth,
+    private db: Firestore,
+    private router: Router
   ) {}
 
   uid?: string;
 
   get logged() {
-    
     return authState(this.auth).pipe(
       tap((user) => {
-        
         this.uid = user?.uid;
       })
     );
   }
 
   get userData() {
-    
     const userDoc = doc(this.usuarios, this.uid);
-    
+
     return docData(userDoc).pipe(first());
   }
 
   get isAdmin() {
-    return authState(this.auth).pipe( 
-      first(), 
-      switchMap((user: any) => { 
+    return authState(this.auth).pipe(
+      first(),
+      switchMap((user: any) => {
         const userDoc = doc(this.usuarios, user?.uid);
-        return docData(userDoc).pipe(first()); 
+        return docData(userDoc).pipe(first());
       }),
-      map((user) => user['isAdmin'] === true) 
+      map((user) => user['isAdmin'] === true)
     );
   }
 
-  usuarios = collection(this.db, 'usuarios'); 
+  usuarios = collection(this.db, 'usuarios');
 
   signupEmail(email: string, password: string, nome: string, nick: string) {
-
     return from(
       createUserWithEmailAndPassword(this.auth, email, password)
     ).pipe(
       tap((creds) => {
-       
-        const user = creds.user; 
-        const userDoc = doc(this.usuarios, user.uid); 
+        const user = creds.user;
+        const userDoc = doc(this.usuarios, user.uid);
 
         setDoc(userDoc, {
           uid: user.uid,
@@ -79,12 +79,7 @@ export class AuthService {
     );
   }
 
-
-
-  
-
   loginEmail(email: string, password: string) {
- 
     return from(signInWithEmailAndPassword(this.auth, email, password)).pipe(
       tap((creds) => {
         this.emailVerificacao(creds.user);
@@ -92,15 +87,10 @@ export class AuthService {
     );
   }
 
-
-
-
-
   logout(rota: '/login' | '/confirmar-email') {
- 
     return from(this.auth.signOut()).pipe(
       tap(() => {
-        this.router.navigate([rota]); 
+        this.router.navigate([rota]);
       })
     );
   }
@@ -114,6 +104,7 @@ export class AuthService {
     }
   }
 
+
   loginGoogle() {
     return from(signInWithPopup(this.auth, new GoogleAuthProvider())).pipe(
       tap((creds) => {
@@ -123,7 +114,7 @@ export class AuthService {
         setDoc(userDoc, {
           uid: user.uid,
           email: user.email,
-          nome: user.displayName, 
+          nome: user.displayName,
           nick: 'Um usuário do Google',
         });
 
@@ -133,7 +124,19 @@ export class AuthService {
   }
 
   recoverPassword(email: string) {
-
     return from(sendPasswordResetEmail(this.auth, email));
   }
+
+  updateProfileData(profileData: Partial<UserInfo>): Observable<any> {
+    const user = this.auth.currentUser;
+
+    return of(user).pipe(
+      concatMap((user) => {
+        if (!user) throw new Error('Não');
+
+        return updateProfile(user, profileData);
+      })
+    );
+  }
+
 }

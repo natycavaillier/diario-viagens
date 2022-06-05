@@ -1,5 +1,6 @@
+import { PerfilComponent } from './components/perfil/perfil/perfil.component';
 import { NgModule } from '@angular/core';
-import { canActivate, redirectLoggedInTo } from '@angular/fire/auth-guard';
+import { canActivate, redirectLoggedInTo, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
 import { RouterModule, Routes } from '@angular/router';
 import { CadastroComponent } from './components/cadastro/cadastro.component';
 import { LoginComponent } from './components/login/login.component';
@@ -7,6 +8,8 @@ import { RecuperarSenhaComponent } from './components/recuperar-senha/recuperar-
 import { UsuarioNaoVerificadoComponent } from './components/usuario-nao-verificado/usuario-nao-verificado.component';
 
 const redirectLoggedInToDiarios = () => redirectLoggedInTo(['/diarios']);
+const redirectLoggedInToPerfil = () => redirectUnauthorizedTo(['/login']);
+
 
 const routes: Routes = [
   {
@@ -29,10 +32,14 @@ const routes: Routes = [
     component: UsuarioNaoVerificadoComponent,
     ...canActivate(redirectLoggedInToDiarios),
   },
+  {
+    path: 'perfil', component: PerfilComponent,
+    ...canActivate(redirectLoggedInToPerfil),
+  },
 ];
 
 @NgModule({
-  
+
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
