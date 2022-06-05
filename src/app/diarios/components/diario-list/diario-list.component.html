@@ -20,7 +20,8 @@
           </mat-card-content>
           <mat-card-actions>
             <a [routerLink]="diario.id" mat-icon-button color="primary">
-              <mat-icon>visibility</mat-icon>
+              <mat-icon matTooltip="Click para visualizar" 
+              matTooltipPosition="above" matTooltipShowDelay="1000">visibility</mat-icon>
             </a>
           </mat-card-actions>
         </mat-card>
@@ -50,14 +51,16 @@
               mat-icon-button
               color="primary"
             >
-              <mat-icon>edit</mat-icon>
+              <mat-icon matTooltip="Click para editar" 
+              matTooltipPosition="below" matTooltipShowDelay="1000">edit</mat-icon>
             </button>
             <button
               (click)="onClickDelete(diario)"
               mat-icon-button
               color="warn"
             >
-              <mat-icon>delete</mat-icon>
+              <mat-icon matTooltip="Click para deletar" 
+              matTooltipPosition="below" matTooltipShowDelay="1000">delete</mat-icon>
             </button>
           </mat-card-actions>
         </mat-card>
@@ -72,6 +75,7 @@
 
 <div class="fab-wrapper">
   <button (click)="onClickAdd()" mat-fab color="primary">
-    <mat-icon>add</mat-icon>
+    <mat-icon matTooltip="Click para adicionar seu diário" 
+    matTooltipPosition="below" matTooltipShowDelay="1000">add</mat-icon>
   </button>
 </div>

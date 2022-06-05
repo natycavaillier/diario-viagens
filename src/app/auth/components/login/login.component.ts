@@ -8,11 +8,16 @@ import { AuthService } from 'src/app/core/services/auth/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
+
 export class LoginComponent implements OnInit {
+  
   loginForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
     senha: ['', [Validators.required, Validators.minLength(8)]],
+    
   });
+
+  hide = true
 
   constructor(
     private fb: FormBuilder,
@@ -20,7 +25,11 @@ export class LoginComponent implements OnInit {
     private toast: HotToastService
   ) {}
 
-  onSubmit() {
+ 
+  
+
+        
+    onSubmit(): void {
     const { email, senha } = this.loginForm.value;
     this.authService
       .loginEmail(email, senha)
@@ -31,6 +40,7 @@ export class LoginComponent implements OnInit {
           loading: 'Fazendo login...',
         })
       )
+
       .subscribe();
   }
 

@@ -13,7 +13,7 @@ import { DiariosService } from 'src/app/core/services/diarios/diarios.service';
 })
 export class DiarioDetailComponent implements OnInit {
   constructor(
-    private route: ActivatedRoute, // guarda informações sobre a rota atual
+    private route: ActivatedRoute,
     private diariosService: DiariosService,
     private authService: AuthService
   ) { }
