@@ -16,6 +16,7 @@ import { DiariosModule } from './diarios/diarios.module';
 import { NgChartsModule } from 'ng2-charts';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { provideDatabase,getDatabase } from '@angular/fire/database';
+import { HomeModule } from './home/home.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -30,6 +31,8 @@ import { provideDatabase,getDatabase } from '@angular/fire/database';
     CoreModule,
     AuthModule, 
     DiariosModule,
+    HomeModule,
+  
     HotToastModule.forRoot({
       position: 'bottom-center',
     }),
