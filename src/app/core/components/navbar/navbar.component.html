@@ -4,9 +4,11 @@
   <mat-icon>menu_open</mat-icon>Diário de Viagens</a>
   
   <span class="spacer"></span>
-  <div *ngIf="logged$ | async; else unlogged" class="link-area">
+  <div *ngIf="logged$ | async as login else unlogged" class="link-area">
     <a mat-button routerLink="/diarios" matTooltip="ir para seu diário" 
     matTooltipPosition="below" matTooltipShowDelay="1000">Diários</a>
+    <a mat-button routerLink="/perfil" matTooltip="Ir para o seu perfil" 
+    matTooltipPosition="below" matTooltipShowDelay="1000">{{login.email}}</a>
     <button mat-icon-button (click)="logout()" matTooltip="Click para sair"
     matTooltipPosition="below" matTooltipShowDelay="1000">
       <mat-icon>logout</mat-icon>
