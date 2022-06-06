@@ -1,25 +1,69 @@
-<mat-toolbar color="primary">
-<a mat-button routerLink="/diarios" matTooltip="ir para página principal" 
-  matTooltipPosition="below" matTooltipShowDelay="1000">
-  <mat-icon>menu_open</mat-icon>Diário de Viagens</a>
-  
+    <mat-toolbar color="{{cor}}">
+  <a
+    mat-button
+    routerLink="/diarios"
+    matTooltip="ir para página principal"
+    matTooltipPosition="below"
+    matTooltipShowDelay="1000"
+  >
+    <mat-icon>auto_stories</mat-icon>
+    </a>
   <span class="spacer"></span>
-  <div *ngIf="logged$ | async as login else unlogged" class="link-area">
-    <a mat-button routerLink="/diarios" matTooltip="ir para seu diário" 
-    matTooltipPosition="below" matTooltipShowDelay="1000">Diários</a>
-    <a mat-button routerLink="/perfil" matTooltip="Ir para o seu perfil" 
-    matTooltipPosition="below" matTooltipShowDelay="1000">{{login.email}}</a>
-    <button mat-icon-button (click)="logout()" matTooltip="Click para sair"
-    matTooltipPosition="below" matTooltipShowDelay="1000">
+  <div *ngIf="logged$ | async as login; else unlogged" class="link-area">
+    <a
+      mat-button
+      routerLink="/diarios"
+      matTooltip="ir para seu diário"
+      matTooltipPosition="below"
+      matTooltipShowDelay="1000"
+      >Diários</a
+    >
+    <a
+      mat-button
+      routerLink="/perfil"
+      matTooltip="Ir para o seu perfil"
+      matTooltipPosition="below"
+      matTooltipShowDelay="1000"
+      >{{ login.email }}</a
+    >
+
+    <button mat-button [matMenuTriggerFor]="belowMenu" matTooltip="Selecione a cor">
+      <mat-icon>format_color_fill</mat-icon>
+    </button>
+    <mat-menu #belowMenu="matMenu" yPosition="below">
+      <button mat-menu-item (click)="onClickPrimary()" >Indigo</button>
+      <button mat-menu-item (click)="onClickAccent()">Pink</button>
+    </mat-menu>
+
+    
+    <button
+      mat-icon-button
+      (click)="logout()"
+      matTooltip="Click para sair"
+      matTooltipPosition="below"
+      matTooltipShowDelay="1000"
+    >
       <mat-icon>logout</mat-icon>
     </button>
   </div>
   <ng-template #unlogged>
     <div class="link-area">
-      <a mat-button routerLink="/login"matTooltip="Click para entrar" 
-      matTooltipPosition="below" matTooltipShowDelay="1000">Login</a>
-      <a mat-button routerLink="/cadastro"matTooltip="Click para criar uma conta" 
-      matTooltipPosition="below" matTooltipShowDelay="1000">Cadastro</a>
+      <a
+        mat-button
+        routerLink="/login"
+        matTooltip="Click para entrar"
+        matTooltipPosition="below"
+        matTooltipShowDelay="1000"
+        >Login</a
+      >
+      <a
+        mat-button
+        routerLink="/cadastro"
+        matTooltip="Click para criar uma conta"
+        matTooltipPosition="below"
+        matTooltipShowDelay="1000"
+        >Cadastro</a
+      >
     </div>
   </ng-template>
 </mat-toolbar>
