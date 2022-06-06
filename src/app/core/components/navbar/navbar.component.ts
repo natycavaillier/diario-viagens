@@ -12,11 +12,27 @@ export class NavbarComponent implements OnInit {
 
   logged$?: Observable<any>;
 
+  
+
   logout() {
     this.authService.logout('/login').subscribe();
   }
 
+ 
+  cor: string = "primary";
+
+  onClickPrimary(){
+    this.cor = "primary";
+  }
+
+  onClickAccent(){
+    this.cor = "accent";
+  }
+
+
+
   ngOnInit(): void {
     this.logged$ = this.authService.logged;
+   
   }
 }
