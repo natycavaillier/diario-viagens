@@ -15,8 +15,17 @@ import { Diario, DiarioConverter } from '../../models/diario';
 })
 export class DashboardService {
   diarios = collection(this.db, 'diarios').withConverter(DiarioConverter);
+  usuarios = collection(this.db,'usuarios');
 
   constructor(private db: Firestore) {}
+
+  getUsersCount(): Observable<number> {
+    return collectionData(this.usuarios).pipe(map((usuarios) => usuarios.length));
+  }
+
+  getCount(): Observable<number> {
+    return collectionData(this.diarios).pipe(map((diarios) => diarios.length));
+  }
 
   getPostsCount(): Observable<number> {
     return collectionData(this.diarios).pipe(map((diarios) => diarios.length));
