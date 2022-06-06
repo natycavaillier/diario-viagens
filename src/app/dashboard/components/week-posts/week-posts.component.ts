@@ -25,7 +25,7 @@ export class WeekPostsComponent implements OnInit {
           datasets: [
             {
               data: Object.values(data),
-              label: 'Quantidade de posts', 
+              label: 'Quantidade de posts',
             },
           ],
         };
