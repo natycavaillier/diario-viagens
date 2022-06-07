@@ -3,5 +3,6 @@ export interface ProfileUser{
   email?: string;
   nome?: string;
   nick?: string;
+  imagemprofile?: string;
 
 }

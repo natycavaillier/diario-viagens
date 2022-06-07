@@ -27,19 +27,19 @@ export class DiariosService {
     private authService: AuthService,
     private uploadService: UploadService
   ) {}
-  
+
 
   diarios = collection(this.db, 'diarios').withConverter(DiarioConverter);
 
   getTodosDiarios(): Observable<Diario[]> {
-   
+
     return collectionData(this.diarios, { idField: 'id' });
   }
 
   getDiariosUsuario(): Observable<Diario[]> {
     return this.authService.logged.pipe(
-     
-      first(), 
+
+      first(),
       switchMap((user) => {
 
         return collectionData(
@@ -51,17 +51,17 @@ export class DiariosService {
   }
 
   getDiarioById(id: string): Observable<Diario> {
-    const diarioDoc = doc(this.diarios, id); 
+    const diarioDoc = doc(this.diarios, id);
     return docData(diarioDoc, { idField: 'id' });
   }
 
   addDiario(diario: Diario, imagem?: File) {
 
     return this.authService.userData.pipe(
-      
+
       switchMap((user) => {
         return this.uploadService
-          .upload(imagem, `diarios/${this.authService.uid}/`) 
+          .upload(imagem, `diarios/${this.authService.uid}/`)
           .pipe(
             switchMap((url) => {
               diario.createdAt = new Date();
@@ -69,9 +69,10 @@ export class DiariosService {
               diario.usuarioId = this.authService.uid;
               diario.usuarioNick = user['nick'];
               diario.usuarioName = user['nome'];
+              diario.imagemprofile = user['imagemprofile'];
               diario.usersLiked = [];
 
-              return from(addDoc(this.diarios, diario)); 
+              return from(addDoc(this.diarios, diario));
             })
           );
       })
@@ -81,10 +82,10 @@ export class DiariosService {
   editDiario(diario: Diario, imagem?: File) {
     const diarioDoc = doc(this.diarios, diario.id);
     return this.uploadService
-      .upload(imagem, `diarios/${diario.usuarioId}/`) 
+      .upload(imagem, `diarios/${diario.usuarioId}/`)
       .pipe(
         switchMap((url) => {
-          
+
           return from(
             updateDoc(diarioDoc, { ...diario, imagem: url ?? diario.imagem })
           );
@@ -93,9 +94,9 @@ export class DiariosService {
   }
 
   deleteDiario(diario: Diario) {
-    
+
     const diarioDoc = doc(this.diarios, diario.id);
-  
+
     return from(deleteDoc(diarioDoc));
   }
 
