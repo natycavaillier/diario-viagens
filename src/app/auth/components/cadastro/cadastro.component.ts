@@ -38,9 +38,9 @@ export class CadastroComponent implements OnInit {
   ) {}
 
   onSubmit() {
-    const { email, senha, nick, nome } = this.signupForm.value;
+    const { email, senha, nick, nome, imagemprofile } = this.signupForm.value;
     this.authService
-      .signupEmail(email, senha, nome, nick)
+      .signupEmail(email, senha, nome, nick, imagemprofile)
       .pipe(
         this.toast.observe({
           success: 'Usuário criado com sucesso',

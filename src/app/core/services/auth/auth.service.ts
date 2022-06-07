@@ -59,7 +59,7 @@ export class AuthService {
 
   usuarios = collection(this.db, 'usuarios');
 
-  signupEmail(email: string, password: string, nome: string, nick: string) {
+  signupEmail(email: string, password: string, nome: string, nick: string, imagemprofile: string) {
     return from(
       createUserWithEmailAndPassword(this.auth, email, password)
     ).pipe(
@@ -72,6 +72,7 @@ export class AuthService {
           email: email,
           nome: nome,
           nick: nick,
+          imagemprofile: imagemprofile,
         });
 
         this.emailVerificacao(creds.user);
@@ -115,6 +116,7 @@ export class AuthService {
           uid: user.uid,
           email: user.email,
           nome: user.displayName,
+          imagemprofile: user.photoURL,
           nick: 'Um usuário do Google',
         });
 
