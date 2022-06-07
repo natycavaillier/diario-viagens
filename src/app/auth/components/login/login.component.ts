@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { HotToastService } from '@ngneat/hot-toast';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
+import  FacebookIncon from '@material-ui/icons/Facebook';
 
 @Component({
   selector: 'app-login',
@@ -40,6 +41,19 @@ export class LoginComponent implements OnInit {
   onLoginGoogle() {
     this.authService
       .loginGoogle()
+      .pipe(
+        this.toast.observe({
+          success: 'Login efetuado',
+          error: 'Operação cancelada',
+          loading: 'Fazendo login...',
+        })
+      )
+      .subscribe();
+  }
+
+  onLoginFacebook() {
+    this.authService
+      .loginFacebook()
       .pipe(
         this.toast.observe({
           success: 'Login efetuado',

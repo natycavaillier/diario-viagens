@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Auth, authState } from '@angular/fire/auth';
+import { Auth, authState, FacebookAuthProvider } from '@angular/fire/auth';
 import { doc, docData, Firestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import {
@@ -42,7 +42,6 @@ export class AuthService {
 
   get userData() {
     const userDoc = doc(this.usuarios, this.uid);
-
     return docData(userDoc).pipe(first());
   }
 
@@ -66,7 +65,6 @@ export class AuthService {
       tap((creds) => {
         const user = creds.user;
         const userDoc = doc(this.usuarios, user.uid);
-
         setDoc(userDoc, {
           uid: user.uid,
           email: email,
@@ -111,13 +109,29 @@ export class AuthService {
       tap((creds) => {
         const user = creds.user;
         const userDoc = doc(this.usuarios, user.uid);
-
         setDoc(userDoc, {
           uid: user.uid,
           email: user.email,
           nome: user.displayName,
           imagemprofile: user.photoURL,
           nick: 'Um usuário do Google',
+        });
+
+        this.router.navigate(['/']);
+      })
+    );
+  }
+
+  loginFacebook() {
+    return from(signInWithPopup(this.auth, new FacebookAuthProvider())).pipe(
+      tap((creds) => {
+        const user = creds.user;
+        const userDoc = doc(this.usuarios, user.uid);
+        setDoc(userDoc, {
+          uid: user.uid,
+          email: user.email,
+          nome: user.displayName,
+          nick: 'Usuário do Facebook',
         });
 
         this.router.navigate(['/']);

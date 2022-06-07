@@ -36,7 +36,7 @@ export class CadastroComponent implements OnInit {
     private fb: FormBuilder,
     private authService: AuthService,
     private toast: HotToastService
-  ) {}
+  ) { }
 
   onSubmit() {
     const { email, senha, nick, nome, imagemprofile } = this.signupForm.value;
@@ -65,5 +65,18 @@ export class CadastroComponent implements OnInit {
       .subscribe();
   }
 
-  ngOnInit(): void {}
+  onLoginFacebook() {
+    this.authService
+      .loginFacebook()
+      .pipe(
+        this.toast.observe({
+          success: 'Login efetuado',
+          error: 'Operação cancelada',
+          loading: 'Fazendo login...',
+        })
+      )
+      .subscribe();
+  }
+
+  ngOnInit(): void { }
 }
