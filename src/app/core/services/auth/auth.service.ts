@@ -10,21 +10,25 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   User,
+  UserInfo,
+  UserCredential,
+  updateProfile,
 } from '@firebase/auth';
 import { collection, setDoc, updateDoc } from '@firebase/firestore';
-import { first, from, map, Observable, switchMap, tap } from 'rxjs';
+import { first, from, map, Observable, of, switchMap, tap, concatMap } from 'rxjs';
 
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  currentUser$ = authState(this.auth);
 
   constructor(
     private auth: Auth,
     private db: Firestore,
     private router: Router
-  ) { }
+  ) {}
 
   uid?: string;
 
@@ -54,7 +58,7 @@ export class AuthService {
 
   usuarios = collection(this.db, 'usuarios');
 
-  signupEmail(email: string, password: string, nome: string, nick: string) {
+  signupEmail(email: string, password: string, nome: string, nick: string, imagemprofile: string) {
     return from(
       createUserWithEmailAndPassword(this.auth, email, password)
     ).pipe(
@@ -66,6 +70,7 @@ export class AuthService {
           email: email,
           nome: nome,
           nick: nick,
+          imagemprofile: imagemprofile,
         });
 
         this.emailVerificacao(creds.user);
@@ -98,6 +103,7 @@ export class AuthService {
     }
   }
 
+
   loginGoogle() {
     return from(signInWithPopup(this.auth, new GoogleAuthProvider())).pipe(
       tap((creds) => {
@@ -107,6 +113,7 @@ export class AuthService {
           uid: user.uid,
           email: user.email,
           nome: user.displayName,
+          imagemprofile: user.photoURL,
           nick: 'Um usuário do Google',
         });
 
@@ -135,4 +142,17 @@ export class AuthService {
   recoverPassword(email: string) {
     return from(sendPasswordResetEmail(this.auth, email));
   }
+
+  updateProfileData(profileData: Partial<UserInfo>): Observable<any> {
+    const user = this.auth.currentUser;
+
+    return of(user).pipe(
+      concatMap((user) => {
+        if (!user) throw new Error('Não');
+
+        return updateProfile(user, profileData);
+      })
+    );
+  }
+
 }

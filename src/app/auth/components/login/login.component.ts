@@ -15,13 +15,15 @@ export class LoginComponent implements OnInit {
     senha: ['', [Validators.required, Validators.minLength(8)]],
   });
 
+  hide = true;
+
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
     private toast: HotToastService
   ) {}
 
-  onSubmit() {
+  onSubmit(): void {
     const { email, senha } = this.loginForm.value;
     this.authService
       .loginEmail(email, senha)
@@ -32,6 +34,7 @@ export class LoginComponent implements OnInit {
           loading: 'Fazendo login...',
         })
       )
+
       .subscribe();
   }
 

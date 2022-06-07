@@ -1,4 +1,3 @@
-/* You can add global styles to this file, and also import other style files */
 
 html,
 body {
@@ -27,4 +26,20 @@ form {
 
 .diario-add mat-form-field {
   width: 100%;
+}
+
+.diarioNaoCurtido {
+  font-variation-settings:
+      'FILL' 0,
+      'wght' 400,
+      'GRAD' 0,
+      'opsz' 48
+}
+
+.diarioCurtido {
+  font-variation-settings:
+      'FILL' 1,
+      'wght' 400,
+      'GRAD' 0,
+      'opsz' 48
 }

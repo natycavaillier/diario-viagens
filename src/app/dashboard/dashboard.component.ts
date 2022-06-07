@@ -11,10 +11,10 @@ import { Observable } from 'rxjs';
 })
 export class DashboardComponent implements OnInit {
   totalPosts$?: Observable<number>;
+  totalUsers$?: Observable<number>;
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({ matches }) => {
       if (matches) {
-        // retorna cards para mobile
         return [
           { title: 'Postagens da semana', cols: 3, rows: 1, id: 'week-posts' },
           {
@@ -47,5 +47,6 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.totalPosts$ = this.dashboardService.getPostsCount();
+    this.totalUsers$ = this.dashboardService.getUsersCount();
   }
 }
