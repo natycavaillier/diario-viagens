@@ -15,7 +15,7 @@ import { HotToastModule } from '@ngneat/hot-toast';
 import { DiariosModule } from './diarios/diarios.module';
 import { NgChartsModule } from 'ng2-charts';
 import { DashboardModule } from './dashboard/dashboard.module';
-import { provideDatabase,getDatabase } from '@angular/fire/database';
+import { provideDatabase, getDatabase } from '@angular/fire/database';
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,7 +28,7 @@ import { provideDatabase,getDatabase } from '@angular/fire/database';
     provideStorage(() => getStorage()),
     BrowserAnimationsModule,
     CoreModule,
-    AuthModule, // As rotas em auth agora fazem parte do app
+    AuthModule,
     DiariosModule,
     HotToastModule.forRoot({
       position: 'bottom-center',
@@ -37,6 +37,6 @@ import { provideDatabase,getDatabase } from '@angular/fire/database';
     provideDatabase(() => getDatabase())
   ],
   providers: [],
-  bootstrap: [AppComponent], // primeiro componente a ser exibido
+  bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
