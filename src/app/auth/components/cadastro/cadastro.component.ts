@@ -31,6 +31,10 @@ export class CadastroComponent implements OnInit {
     confirma_senha: [''],
   });
 
+  signupForm6 = this.fb.group({
+    imagemprofile: [''],
+  });
+
   isLinear = true;
 
   confereSenha() {
@@ -57,6 +61,7 @@ export class CadastroComponent implements OnInit {
       var { senha } = this.signupForm4.value;
       var { nick } = this.signupForm2.value;
       var { nome } = this.signupForm1.value;
+      var { imagemprofile } = this.signupForm6.value;
     } else {
       this.dialog.open(ConfereSenhaComponent);
       
