@@ -18,6 +18,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { provideDatabase,getDatabase } from '@angular/fire/database';
 import { HomeModule } from './home/home.module';
 
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -42,4 +43,4 @@ import { HomeModule } from './home/home.module';
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

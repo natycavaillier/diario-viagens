@@ -1,29 +1,30 @@
 import { Converter } from './converter';
 
 export interface Diario {
-  id?: string; 
+  id?: string;
   titulo: string;
   corpo: string;
   local: string;
-  data: Date; 
-  imagem?: string; 
-  
-  createdAt: Date; 
+  data: Date;
+  imagem?: string;
+
+  createdAt: Date;
   usuarioId?: string;
   usuarioNick?: string;
   usuarioName?: string;
   usersLiked: string[];
+  imagemprofile?: string;
 }
 
 export const DiarioConverter: Converter<Diario> = {
-  toFirestore: (data) => data, 
+  toFirestore: (data) => data,
   fromFirestore: (snapshot, options) => {
-   
+
     const obj = snapshot.data(options)!;
 
     return {
-      ...obj, 
-      data: obj['data']?.toDate(), 
+      ...obj,
+      data: obj['data']?.toDate(),
       createdAt: obj['createdAt']?.toDate(),
     } as Diario;
   },

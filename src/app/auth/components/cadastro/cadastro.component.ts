@@ -51,8 +51,6 @@ export class CadastroComponent implements OnInit {
     public dialog: MatDialog
   ) {}
 
-
-
   onSubmit() {
     if (this.confereSenha()) {
       var { email } = this.signupForm3.value;
@@ -63,8 +61,9 @@ export class CadastroComponent implements OnInit {
       this.dialog.open(ConfereSenhaComponent);
       
     }
+    
     this.authService
-      .signupEmail(email, senha, nome, nick)
+      .signupEmail(email, senha, nome, nick, imagemprofile)
       .pipe(
         this.toast.observe({
           success: 'Usuário criado com sucesso',
@@ -88,5 +87,18 @@ export class CadastroComponent implements OnInit {
       .subscribe();
   }
 
-  ngOnInit(): void {}
+  onLoginFacebook() {
+    this.authService
+      .loginFacebook()
+      .pipe(
+        this.toast.observe({
+          success: 'Login efetuado',
+          error: 'Operação cancelada',
+          loading: 'Fazendo login...',
+        })
+      )
+      .subscribe();
+  }
+
+  ngOnInit(): void { }
 }
