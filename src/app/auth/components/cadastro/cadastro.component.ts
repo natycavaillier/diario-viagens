@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  ValidationErrors,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { HotToastService } from '@ngneat/hot-toast';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
+import { ConfereSenhaComponent } from '../confere-senha/confere-senha.component';
 
 @Component({
   selector: 'app-cadastro',
@@ -14,32 +11,57 @@ import { AuthService } from 'src/app/core/services/auth/auth.service';
   styleUrls: ['./cadastro.component.scss'],
 })
 export class CadastroComponent implements OnInit {
-  signupForm = this.fb.group(
-    {
-      nome: ['', [Validators.required]],
-      nick: ['', [Validators.required]],
-      imagemprofile: [''],
-      email: ['', [Validators.required, Validators.email]],
-      senha: ['', [Validators.required, Validators.minLength(8)]],
-      confirma_senha: [''],
-    },
-    { validators: [this.matchPasswords] }
-  );
+  signupForm1 = this.fb.group({
+    nome: ['', [Validators.required]],
+  });
 
-  matchPasswords(control: AbstractControl): ValidationErrors | null {
-    return control.get('senha')!.value !== control.get('confirma_senha')!.value
-      ? { matchPasswords: true }
-      : null;
+  signupForm2 = this.fb.group({
+    nick: ['', [Validators.required]],
+  });
+
+  signupForm3 = this.fb.group({
+    email: ['', [Validators.required, Validators.email]],
+  });
+
+  signupForm4 = this.fb.group({
+    senha: ['', [Validators.required, Validators.minLength(8)]],
+  });
+
+  signupForm5 = this.fb.group({
+    confirma_senha: [''],
+  });
+
+  isLinear = true;
+
+  confereSenha() {
+    if (
+      this.signupForm4.get('senha')!.value !==
+      this.signupForm5.get('confirma_senha')!.value
+    ) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private toast: HotToastService
-  ) { }
+    private toast: HotToastService,
+    public dialog: MatDialog
+  ) {}
 
   onSubmit() {
-    const { email, senha, nick, nome, imagemprofile } = this.signupForm.value;
+    if (this.confereSenha()) {
+      var { email } = this.signupForm3.value;
+      var { senha } = this.signupForm4.value;
+      var { nick } = this.signupForm2.value;
+      var { nome } = this.signupForm1.value;
+    } else {
+      this.dialog.open(ConfereSenhaComponent);
+      
+    }
+    
     this.authService
       .signupEmail(email, senha, nome, nick, imagemprofile)
       .pipe(
