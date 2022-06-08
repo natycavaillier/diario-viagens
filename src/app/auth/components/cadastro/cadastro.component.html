@@ -1,82 +1,149 @@
+<br>
+<div class="cadastro">
+<h2>Cadastro</h2>
+<p>Seja bem-vindo(a) de volta!</p>
+<button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
+  {{ !isLinear ? "Enable linear mode" : "Disable linear mode" }}
+</button>
+</div>
 <div class="form-wrapper">
-  <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
-    <h2>Cadastro</h2>
-    <p>Seja bem-vindo(a) de volta!</p>
-    <mat-form-field appearance="fill">
-      <mat-label>Nome</mat-label>
-      <input matInput placeholder="Seu nome" formControlName="nome" required />
-      <mat-error *ngIf="signupForm.get('nome')?.errors?.['required']"
-        >Campo obrigatório</mat-error
-      >
-      <mat-icon matPrefix>person</mat-icon>
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-      <mat-label>Seu título</mat-label>
-      <input
-        matInput
-        placeholder="Ex: Apreciador de cuscuz"
-        formControlName="nick"
-        required
-      />
-      <mat-error *ngIf="signupForm.get('nick')?.errors?.['required']"
-        >Campo obrigatório</mat-error
-      >
-      <mat-icon matPrefix>person</mat-icon>
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-      <mat-label>Email</mat-label>
-      <input
-        matInput
-        placeholder="Seu email"
-        formControlName="email"
-        required
-      />
-      <mat-error *ngIf="signupForm.get('email')?.errors?.['required']"
-        >Campo obrigatório</mat-error
-      >
-      <mat-error *ngIf="signupForm.get('email')?.errors?.['email']"
-        >Email inválido</mat-error
-      >
-      <mat-icon matPrefix>email</mat-icon>
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-      <mat-label>Senha</mat-label>
-      <input
-        matInput
-        placeholder="Sua senha"
-        formControlName="senha"
-        type="password"
-        required
-      />
-      <mat-error *ngIf="signupForm.get('senha')?.errors?.['required']"
-        >Campo obrigatório</mat-error
-      >
-      <mat-error *ngIf="signupForm.get('senha')?.errors?.['minlength']"
-        >O mínimo são 8 caracteres
-      </mat-error>
-      <mat-icon matPrefix>key</mat-icon>
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-      <mat-label>Confirmar senha</mat-label>
-      <input
-        matInput
-        placeholder="Confirmar senha"
-        formControlName="confirma_senha"
-        type="password"
-      />
-      <mat-icon matPrefix>key</mat-icon>
-    </mat-form-field>
-    <span
-      class="mat-error"
-      *ngIf="signupForm.errors?.['matchPasswords'] && signupForm.get('confirma_senha')?.touched"
-    >
-      As senhas não correspondem
-    </span>
-    <button mat-raised-button color="primary" [disabled]="signupForm.invalid">
-      Cadastrar
-    </button>
-    <span>ou</span>
-    <button
+
+    <mat-stepper orientation="vertical" [linear]="isLinear" #stepper>
+      <mat-step [stepControl]="signupForm1">
+        <form [formGroup]="signupForm1">
+          <ng-template matStepLabel>Preencha seu nome</ng-template>
+          <mat-form-field appearance="fill">
+            <mat-label>Nome</mat-label>
+            <input
+              matInput
+              placeholder="Seu nome"
+              formControlName="nome"
+              required
+            /><mat-icon matPrefix>person</mat-icon>
+            <mat-error *ngIf="signupForm1.get('nome')?.errors?.['required']"
+              >Campo obrigatório</mat-error
+            >
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="signupForm2">
+        <form [formGroup]="signupForm2">
+          <ng-template matStepLabel>Preencha seu nick</ng-template>
+          <mat-form-field appearance="fill">
+            <mat-label>Nick</mat-label>
+            <input
+              matInput
+              placeholder="Nick"
+              formControlName="nick"
+              required
+            /><mat-icon matPrefix>person</mat-icon>
+            <mat-error *ngIf="signupForm2.get('nick')?.errors?.['required']"
+              >Campo obrigatório</mat-error
+            >
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="signupForm3">
+        <form [formGroup]="signupForm3">
+          <ng-template matStepLabel>Preencha seu e-mail</ng-template>
+          <mat-form-field appearance="fill">
+            <mat-label>Email</mat-label>
+            <input
+              matInput
+              placeholder="Email"
+              formControlName="email"
+              required
+            /><mat-icon matPrefix>email</mat-icon>
+            <mat-error *ngIf="signupForm3.get('email')?.errors?.['required']"
+              >Campo obrigatório</mat-error
+            >
+            <mat-error *ngIf="signupForm3.get('email')?.errors?.['email']"
+              >Email inválido</mat-error
+            >
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="signupForm4">
+        <form [formGroup]="signupForm4">
+          <ng-template matStepLabel>Preencha sua senha</ng-template>
+          <mat-form-field appearance="fill">
+            <mat-label>Senha</mat-label>
+            <input
+              matInput
+              placeholder=" Sua Senha"
+              formControlName="senha"
+              type="password"
+              required
+            />
+            <mat-icon key>senha</mat-icon>
+            <mat-error *ngIf="signupForm4.get('senha')?.errors?.['required']"
+              >Campo obrigatório</mat-error
+            >
+            <mat-error *ngIf="signupForm4.get('senha')?.errors?.['minlength']"
+              >O mínimo são 8 caracteres</mat-error
+            >
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="signupForm5">
+        <form [formGroup]="signupForm5">
+          <ng-template matStepLabel>Confirme sua senha</ng-template>
+          <mat-form-field appearance="fill">
+            <mat-label>Confirmar senha</mat-label>
+            <input
+              matInput
+              placeholder="Confirmar senha"
+              formControlName="confirma_senha"
+              type="password"
+            />
+            <mat-icon matPrefix>key</mat-icon>
+          </mat-form-field>
+              <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Concluir</ng-template>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+
+          
+
+          <button  (click)="onSubmit()"
+            mat-raised-button
+            color="primary"
+            [disabled]="signupForm5.invalid"
+          > Cadastrar
+          </button>
+         </div>
+      </mat-step>
+    </mat-stepper>
+    <br>
+    <p><b>ou</b></p>
+    
+    <br>
+    <p><button
       (click)="onLoginGoogle()"
       type="button"
       mat-raised-button
@@ -84,5 +151,5 @@
     >
       Entrar com o google
     </button>
-  </form>
+  </p>
 </div>
