@@ -1,8 +1,11 @@
+import { User } from '@angular/fire/auth';
+import { ProfileUser } from './../../models/user-profile';
 import { Injectable } from '@angular/core';
 import {
   collectionData,
   docData,
   Firestore,
+  setDoc,
   where,
 } from '@angular/fire/firestore';
 import {
@@ -25,7 +28,8 @@ export class DiariosService {
   constructor(
     private db: Firestore,
     private authService: AuthService,
-    private uploadService: UploadService
+    private uploadService: UploadService,
+
   ) {}
 
 
@@ -34,6 +38,34 @@ export class DiariosService {
   getTodosDiarios(): Observable<Diario[]> {
 
     return collectionData(this.diarios, { idField: 'id' });
+  }
+
+  atualizaFoto(): Observable<Diario[]> {
+    return this.authService.logged.pipe(
+      first(),
+      switchMap((user) => {
+
+        return collectionData(
+          query(this.diarios, where('usuarioId', '==', user?.photoURL)),
+          { idField: 'id' }
+        );
+      })
+
+    );
+  }
+
+  atualizaNome(): Observable<Diario[]> {
+    return this.authService.logged.pipe(
+      first(),
+      switchMap((user) => {
+
+        return collectionData(
+          query(this.diarios, where('usuarioId', '==', user?.displayName)),
+          { idField: 'id' }
+        );
+      })
+
+    );
   }
 
   getDiariosUsuario(): Observable<Diario[]> {
@@ -79,7 +111,7 @@ export class DiariosService {
     );
   }
 
-  editDiario(diario: Diario, imagem?: File) {
+  editDiario(diario: Diario, imagem?: File ) {
     const diarioDoc = doc(this.diarios, diario.id);
     return this.uploadService
       .upload(imagem, `diarios/${diario.usuarioId}/`)

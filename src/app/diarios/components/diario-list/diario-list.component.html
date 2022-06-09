@@ -1,89 +1,262 @@
+<main>
+  <div class="container" id="profile-upper" *ngIf="user$ | async as user">
+    <div id="profile-banner-image">
+      <img
+        src="http://leoaraujo.com/wp-content/uploads/2020/01/soul-code.jpg"
+        alt="Banner image"
+      />
+    </div>
+
+    <div id="profile-d">
+      <div id="profile-pic">
+        <img [src]="user.photoURL" (click)="inputField.click()" />
+
+        <input
+          #inputField
+          hidden
+          type="file"
+          (change)="uploadImage($event, user)"
+        />
+      </div>
+      <div id="u-name">{{ user.displayName }}</div>
+    </div>
+
+    <div id="black-grd"></div>
+  </div>
+
+  <div id="main-content" *ngIf="user$ | async as user">
+    <div class="tb">
+      <div class="td" id="l-col">
+        <div class="l-cnt">
+          <div class="cnt-label">
+            <i class="l-i" id="l-i-i"></i>
+            <span>{{ user.email }}</span>
+            <div class="lb-action"><i class="material-icons">edit</i></div>
+          </div>
+        </div>
+
+        <div class="l-cnt l-mrg">
+          <div class="cnt-label">
+            <i class="l-i" id="l-i-p"></i>
+            <span>Fotos</span>
+            <div class="lb-action" id="b-i">
+              <i class="material-icons">keyboard_arrow_down</i>
+            </div>
+          </div>
+
+          <div
+            id="photos"
+            *ngIf="meusDiarios$ | async as diarios; else loading"
+          >
+            <div class="" *ngFor="let diario of diarios">
+              <div class="col">
+                <img [src]="diario.imagem" alt="" class="gridesquerda" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="t-box">
+          <a href="#">Termo de Privacidade</a>
+        </div>
+      </div>
+
+      <div class="td" id="m-col">
+        <div class="m-mrg" id="composer">
+          <div id="c-tabs-cvr">
+            <div class="tb" id="c-tabs">
+              <div class="td active">
+                <button>
+                  <i class="material-icons">subject</i><span>Publicações</span>
+                </button>
+              </div>
+
+              <button (click)="onClickAdd()">
+                <div class="td">
+                  <i class="material-icons">camera_enhance</i>
+                  <span>Enviar Foto</span>
+                </div>
+              </button>
+            </div>
+          </div>
+          <div id="c-c-main">
+            <div class="tb">
+              <div class="td" id="p-c-i" *ngIf="user$ | async as user">
+                <img [src]="user.photoURL" alt="Profile pic" />
+              </div>
+              <div class="td" id="c-inp">
+                <input type="text" placeholder="Publique!" />
+              </div>
+            </div>
+            <div id="insert_emoji">
+              <i class="material-icons">insert_emoticon</i>
+            </div>
+          </div>
+        </div>
+
+        <mat-tab-group mat-align-tabs="center">
+          <mat-tab label="TIMELINE">
+            <ng-template mat-tab-label>
+              <div class="td active">
+                <i class="material-icons">av_timer</i><span>TIMELINE</span>
+              </div>
+            </ng-template>
+
+            <div *ngIf="allDiarios$ | async as diarios; else loading">
+              <mat-card *ngFor="let diario of diarios" class="example-card">
+                <mat-card-header>
+                  <div
+                    mat-card-avatar
+                    class="example-header-image divFotoPerfil"
+                  >
+                    <img
+                      class="fotoPerfil"
+                      mat-card-image
+                      [src]="
+                        diario.imagemprofile ?? 'assets/img/placeholder.png'
+                      "
+                    />
+                  </div>
+                  <mat-card-title>{{ diario.usuarioName }}</mat-card-title>
+                  <mat-card-subtitle>{{
+                    diario.usuarioNick
+                  }}</mat-card-subtitle>
+                </mat-card-header>
+
+                <h2>{{ diario.titulo }}</h2>
+                <p>{{ diario.corpo }}</p>
+
+                <a [routerLink]="diario.id" >
+                <img
+                  mat-card-image
+                  [src]="diario.imagem"
+                  alt="erro"
+                />
+
+              </a>
+
+                  <small class="datadiario">{{ diario.data | date }} | {{ diario.local }}</small>
+
+
+                <mat-card-actions>
+                  <a [routerLink]="diario.id" mat-icon-button color="primary">
+                    <mat-icon
+                      matTooltip="Click para visualizar"
+                      matTooltipPosition="above"
+                      matTooltipShowDelay="1000"
+                      >visibility</mat-icon
+                    >
+                  </a>
+
+                  <tr></tr>
+                </mat-card-actions>
+              </mat-card>
+            </div>
+          </mat-tab>
+
+          <mat-tab label="Meus diários" id="meudiarios">
+            <div *ngIf="meusDiarios$ | async as diarios; else loading">
+              <mat-card *ngFor="let diario of diarios" id="example-card2">
+                <mat-card-header>
+                  <div
+                    mat-card-avatar
+                    class="example-header-image divFotoPerfil"    >
+                    <img
+                      class="fotoPerfil"
+                      mat-card-image
+                      [src]="
+                        diario.imagemprofile ?? 'assets/img/placeholder.png'
+                      "
+                    />
+                  </div>
+                  <mat-card-title>{{ diario.usuarioName }}</mat-card-title>
+                  <mat-card-subtitle>{{
+                    diario.usuarioNick
+                  }}</mat-card-subtitle>
+                </mat-card-header>
+
+                  <div>
+                <img
+                  mat-card-image
+                  [src]="diario.imagem"
+                  alt="Photo of a Shiba Inu"
+                />
+              </div>
+
+              <mat-card-content>
+                <h2>{{ diario.titulo }}</h2>
+                <small>{{ diario.data | date }} | {{ diario.local }}</small>
+                <p>{{ diario.corpo }}</p>
+              </mat-card-content>
+                <mat-card-actions>
+                  <button
+                    (click)="onClickEdit(diario)"
+                    mat-icon-button
+                    color="primary"
+                  >
+                    <mat-icon
+                      matTooltip="Click para editar"
+                      matTooltipPosition="below"
+                      matTooltipShowDelay="1000"
+                      >edit</mat-icon
+                    >
+                  </button>
+                  <button
+                    (click)="onClickDelete(diario)"
+                    mat-icon-button
+                    color="warn"
+                  >
+                    <mat-icon
+                      matTooltip="Click para deletar"
+                      matTooltipPosition="below"
+                      matTooltipShowDelay="1000"
+                      >delete</mat-icon
+                    >
+                  </button>
+                </mat-card-actions>
+              </mat-card>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+
+
+        <div id="loading"><i></i></div>
+      </div>
+      <!-- <div class="td" id="r-col">
+        <div id="chat-bar">
+          <div id="chat-lb">
+            <i class="material-icons">contacts</i><span>Contatos</span>
+          </div>
+          <div id="cts">
+            <div class="on-ct active">
+              <a href="#"
+                ><img
+                  src="https://imagizer.imageshack.com/img924/4231/JnFicn.jpg"
+              /></a>
+            </div>
+          </div>
+        </div>
+      </div> -->
+    </div>
+  </div>
+  <div id="device-bar-2"><i class="fab fa-apple"></i></div>
+</main>
+
+<!-- =================================================================== -->
+
 <div>
-  <mat-tab-group mat-align-tabs="center">
-    <mat-tab label="Todos">
-      <div *ngIf="allDiarios$ | async as diarios; else loading">
-        <mat-card *ngFor="let diario of diarios" class="example-card">
-          <mat-card-header>
-            <div mat-card-avatar class="example-header-image divFotoPerfil">
-              <img class="fotoPerfil"
-            mat-card-image
-            [src]="diario.imagemprofile ?? 'assets/img/placeholder.png'"/>
-            </div>
-            <mat-card-title>{{ diario.usuarioName }}</mat-card-title>
-            <mat-card-subtitle>{{ diario.usuarioNick }}</mat-card-subtitle>
-          </mat-card-header>
-          <img
-            mat-card-image
-            [src]="diario.imagem"
-            alt="Photo of a Shiba Inu"
-          />
-          <mat-card-content>
-            <h2>{{ diario.titulo }}</h2>
-            <small>{{ diario.data | date }} | {{ diario.local }}</small>
-            <p>{{ diario.corpo }}</p>
-          </mat-card-content>
-          <mat-card-actions>
-            <a [routerLink]="diario.id" mat-icon-button color="primary">
-              <mat-icon matTooltip="Click para visualizar"
-              matTooltipPosition="above" matTooltipShowDelay="1000">visibility</mat-icon>
-            </a>
-          </mat-card-actions>
-        </mat-card>
-      </div>
-    </mat-tab>
-    <mat-tab label="Meus diários">
-      <div *ngIf="meusDiarios$ | async as diarios; else loading">
-        <mat-card *ngFor="let diario of diarios" class="example-card">
-          <mat-card-header>
-            <div mat-card-avatar class="example-header-image divFotoPerfil">
-              <img class="fotoPerfil"
-            mat-card-image
-            [src]="diario.imagemprofile ?? 'assets/img/placeholder.png'"/>
-            </div>
-            <mat-card-title>{{ diario.usuarioName }}</mat-card-title>
-            <mat-card-subtitle>{{ diario.usuarioNick }}</mat-card-subtitle>
-          </mat-card-header>
-          <img
-            mat-card-image
-            [src]="diario.imagem"
-            alt="Photo of a Shiba Inu"
-          />
-          <mat-card-content>
-            <h2>{{ diario.titulo }}</h2>
-            <small>{{ diario.data | date }} | {{ diario.local }}</small>
-            <p>{{ diario.corpo }}</p>
-          </mat-card-content>
-          <mat-card-actions>
-            <button
-              (click)="onClickEdit(diario)"
-              mat-icon-button
-              color="primary"
-            >
-              <mat-icon matTooltip="Click para editar"
-              matTooltipPosition="below" matTooltipShowDelay="1000">edit</mat-icon>
-            </button>
-            <button
-              (click)="onClickDelete(diario)"
-              mat-icon-button
-              color="warn"
-            >
-              <mat-icon matTooltip="Click para deletar"
-              matTooltipPosition="below" matTooltipShowDelay="1000">delete</mat-icon>
-            </button>
-          </mat-card-actions>
-        </mat-card>
-      </div>
-    </mat-tab>
-  </mat-tab-group>
-</div>
+  <ng-template #loading>
+    <app-loader label="Carregando todos os diários..."></app-loader>
+  </ng-template>
 
-<ng-template #loading>
-  <app-loader label="Carregando todos os diários..."></app-loader>
-</ng-template>
-
-<div class="fab-wrapper">
-  <button (click)="onClickAdd()" mat-fab color="primary">
-    <mat-icon matTooltip="Click para adicionar seu diário"
-    matTooltipPosition="below" matTooltipShowDelay="1000">add</mat-icon>
-  </button>
+  <div class="fab-wrapper">
+    <button (click)="onClickAdd()" mat-fab color="primary">
+      <mat-icon
+        matTooltip="Click para adicionar seu diário"
+        matTooltipPosition="below"
+        matTooltipShowDelay="1000"
+        >add</mat-icon
+      >
+    </button>
+  </div>
 </div>

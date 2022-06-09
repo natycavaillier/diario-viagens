@@ -22,6 +22,7 @@
       <mat-datepicker-toggle matPrefix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
+
     <mat-form-field appearance="fill">
       <mat-label>Comentário</mat-label>
       <textarea
@@ -32,6 +33,8 @@
       ></textarea>
       <mat-icon matPrefix>chat</mat-icon>
     </mat-form-field>
+
+
     <input
       (change)="setImage($event)"
       #imagem
