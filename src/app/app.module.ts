@@ -20,7 +20,7 @@ import { HomeModule } from './home/home.module';
 
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent,],
   imports: [
     BrowserModule,
     AppRoutingModule,
