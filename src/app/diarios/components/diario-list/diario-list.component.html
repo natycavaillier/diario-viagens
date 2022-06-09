@@ -4,12 +4,10 @@
       <div *ngIf="allDiarios$ | async as diarios; else loading">
         <mat-card *ngFor="let diario of diarios" class="example-card">
           <mat-card-header>
-            <div mat-card-avatar class="example-header-image">
-              <img
+            <div mat-card-avatar class="example-header-image divFotoPerfil">
+              <img class="fotoPerfil"
             mat-card-image
-            [src]="diario.imagemprofile ?? '/src/assets/img/placeholder.png'"
-
-          />
+            [src]="diario.imagemprofile ?? 'assets/img/placeholder.png'"/>
             </div>
             <mat-card-title>{{ diario.usuarioName }}</mat-card-title>
             <mat-card-subtitle>{{ diario.usuarioNick }}</mat-card-subtitle>
@@ -37,12 +35,10 @@
       <div *ngIf="meusDiarios$ | async as diarios; else loading">
         <mat-card *ngFor="let diario of diarios" class="example-card">
           <mat-card-header>
-            <div mat-card-avatar class="example-header-image">
-              <img
+            <div mat-card-avatar class="example-header-image divFotoPerfil">
+              <img class="fotoPerfil"
             mat-card-image
-            [src]="diario.imagemprofile ?? '/src/assets/img/placeholder.png'"
-
-          />
+            [src]="diario.imagemprofile ?? 'assets/img/placeholder.png'"/>
             </div>
             <mat-card-title>{{ diario.usuarioName }}</mat-card-title>
             <mat-card-subtitle>{{ diario.usuarioNick }}</mat-card-subtitle>

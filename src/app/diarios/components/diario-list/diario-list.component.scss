@@ -10,7 +10,17 @@
   background-size: cover;
 }
 
-.main-image{
-  margin:10px auto;
+.main-image {
+  margin: 10px auto;
   width: 100%;
+}
+
+.fotoPerfil {
+  border-radius: 50%;
+}
+
+.divFotoPerfil {
+  margin-top: 2px;
+  margin-left: 2px;
+  margin-right: 10px;
 }
