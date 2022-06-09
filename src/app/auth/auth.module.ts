@@ -9,6 +9,7 @@ import { UsuarioNaoVerificadoComponent } from './components/usuario-nao-verifica
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../shared/material.module';
 import { PerfilComponent } from './components/perfil/perfil/perfil.component';
+import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { PerfilComponent } from './components/perfil/perfil/perfil.component';
     RecuperarSenhaComponent,
     UsuarioNaoVerificadoComponent,
     PerfilComponent,
+    DeleteDialogComponent,
   ],
   imports: [
     CommonModule,

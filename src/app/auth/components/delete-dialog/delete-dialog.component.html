@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>Delete foto</h1>
+<div mat-dialog-content>
+ Tem certeza que gostaria de deletar?
+</div>
+<div mat-dialog-actions>
+  <button (click)="confirmDelete(false)" mat-button mat-dialog-close>Não</button>
+  <button (click)="confirmDelete(true)" mat-button mat-dialog-close cdkFocusInitial>Sim</button>
+
+</div>
+
