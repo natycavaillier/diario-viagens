@@ -3,9 +3,10 @@ import { PerfilComponent } from './../../../auth/components/perfil/perfil/perfil
 import { ProfileUser } from './../../../core/models/user-profile';
 import { Auth, User } from '@angular/fire/auth';
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { HotToastService } from '@ngneat/hot-toast';
 import { Observable } from 'rxjs';
+import { DeleteDialogComponent } from 'src/app/auth/components/delete-dialog/delete-dialog.component';
 import { Diario } from 'src/app/core/models/diario';
 import { DiariosService } from 'src/app/core/services/diarios/diarios.service';
 import { DiarioAddComponent } from '../diario-add/diario-add.component';
@@ -29,7 +30,7 @@ export class DiarioListComponent implements OnInit {
 
   diario: Diario = {} as Diario;
   imagem?: File;
-
+  dialogRef!: MatDialogRef<DeleteDialogComponent>;
 
   constructor(
     private dialog: MatDialog,
@@ -107,13 +108,16 @@ export class DiarioListComponent implements OnInit {
   }
 
   onClickDelete(diario: Diario) {
-    const canDelete = confirm('Deseja mesmo deletar?');
-    if (canDelete) {
-      this.diariosService
+    this.dialogRef = this.dialog.open(DeleteDialogComponent);
+    this.dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        this.diariosService
         .deleteDiario(diario)
         .pipe(this.toast.observe({ success: 'Diário apagado!' }))
         .subscribe();
-    }
+      }
+        //  this.dialogRef = null
+    });
   }
 
   ngOnInit(): void {
