@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/core/services/auth/auth.service';
 import  FacebookIncon from '@material-ui/icons/Facebook';
 import { MatDialog } from '@angular/material/dialog';
 import { MensagemComponent } from '../mensagem/mensagem.component';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -18,14 +19,26 @@ export class LoginComponent implements OnInit {
   });
 
   hide = true;
- 
+  token: string|undefined;
+
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
     private toast: HotToastService,
     private dialog: MatDialog
-  ) {}
+  ) {this.token = undefined;}
+
+  public send(form: NgForm): void {
+    if (form.invalid) {
+      for (const control of Object.keys(form.controls)) {
+        form.controls[control].markAsTouched();
+      }
+      return;
+    }
+
+    console.debug(`Token [${this.token}] generated`);
+  }
 
   onSubmit(): void {
     const { email, senha } = this.loginForm.value;
@@ -40,7 +53,7 @@ export class LoginComponent implements OnInit {
       )
 
       .subscribe({
-        next: () => this.dialog.open(MensagemComponent)      
+        next: () => this.dialog.open(MensagemComponent)
       });
   }
 

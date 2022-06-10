@@ -13,7 +13,8 @@ import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.
 import { ConfereSenhaComponent } from './components/confere-senha/confere-senha.component';
 import { MensagemComponent } from './components/mensagem/mensagem.component';
 import { MensagemSaidaComponent } from './components/mensagem-saida/mensagem-saida.component';
-
+import { RECAPTCHA_SETTINGS, RecaptchaFormsModule, RecaptchaModule, RecaptchaSettings } from 'ng-recaptcha';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,19 @@ import { MensagemSaidaComponent } from './components/mensagem-saida/mensagem-sai
     ReactiveFormsModule,
     MaterialModule,
     FormsModule,
+    RecaptchaFormsModule,
+    RecaptchaModule,
   ],
+
+  providers: [
+    {
+      provide: RECAPTCHA_SETTINGS,
+      useValue: {
+        siteKey: environment.recaptcha.siteKey,
+      } as RecaptchaSettings,
+    },
+  ],
+
 })
 export class AuthModule {}
 
