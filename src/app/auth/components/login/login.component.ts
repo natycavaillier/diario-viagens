@@ -3,6 +3,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { HotToastService } from '@ngneat/hot-toast';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import  FacebookIncon from '@material-ui/icons/Facebook';
+import { MatDialog } from '@angular/material/dialog';
+import { MensagemComponent } from '../mensagem/mensagem.component';
 
 @Component({
   selector: 'app-login',
@@ -16,11 +18,13 @@ export class LoginComponent implements OnInit {
   });
 
   hide = true;
+ 
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private toast: HotToastService
+    private toast: HotToastService,
+    private dialog: MatDialog
   ) {}
 
   onSubmit(): void {
@@ -35,7 +39,9 @@ export class LoginComponent implements OnInit {
         })
       )
 
-      .subscribe();
+      .subscribe({
+        next: () => this.dialog.open(MensagemComponent)      
+      });
   }
 
   onLoginGoogle() {
@@ -48,7 +54,9 @@ export class LoginComponent implements OnInit {
           loading: 'Fazendo login...',
         })
       )
-      .subscribe();
+      .subscribe({
+        next: () => this.dialog.open(MensagemComponent)
+      });
   }
 
   onLoginFacebook() {
@@ -61,7 +69,9 @@ export class LoginComponent implements OnInit {
           loading: 'Fazendo login...',
         })
       )
-      .subscribe();
+        .subscribe({
+          next: () => this.dialog.open(MensagemComponent)
+        });
   }
 
   ngOnInit(): void {}
