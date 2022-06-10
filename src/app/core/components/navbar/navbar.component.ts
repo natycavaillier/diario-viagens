@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
+import { MensagemSaidaComponent } from 'src/app/auth/components/mensagem-saida/mensagem-saida.component';
 import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
@@ -8,14 +10,23 @@ import { AuthService } from '../../services/auth/auth.service';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private mensagem: MatDialog
+    
+    ) {}
 
   logged$?: Observable<any>;
 
   
 
   logout() {
-    this.authService.logout('/login').subscribe();
+    this.authService.logout('/login').subscribe({
+      next: () => this.mensagem.open(MensagemSaidaComponent)
+
+    }
+      
+    );
   }
 
  

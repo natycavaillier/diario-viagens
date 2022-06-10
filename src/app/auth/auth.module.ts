@@ -11,6 +11,8 @@ import { MaterialModule } from '../shared/material.module';
 import { PerfilComponent } from './components/perfil/perfil/perfil.component';
 import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
 import { ConfereSenhaComponent } from './components/confere-senha/confere-senha.component';
+import { MensagemComponent } from './components/mensagem/mensagem.component';
+import { MensagemSaidaComponent } from './components/mensagem-saida/mensagem-saida.component';
 
 
 @NgModule({
@@ -22,6 +24,8 @@ import { ConfereSenhaComponent } from './components/confere-senha/confere-senha.
     PerfilComponent,
     DeleteDialogComponent,
     ConfereSenhaComponent,
+    MensagemComponent,
+    MensagemSaidaComponent,
   ],
   imports: [
     CommonModule,
