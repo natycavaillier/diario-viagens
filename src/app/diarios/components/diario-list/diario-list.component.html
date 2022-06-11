@@ -18,7 +18,7 @@
           (change)="uploadImage($event, user)"
         />
       </div>
-      <div id="u-name">{{ user.displayName }}</div>
+      <div *ngIf="users$ | async as user" id="u-name">{{ user.nome }}</div>
     </div>
 
     <div id="black-grd"></div>
@@ -49,12 +49,8 @@
             *ngIf="meusDiarios$ | async as diarios; else loading"
           >
             <div class="" *ngFor="let diario of diarios">
-              <div class="col">
-                <img *ngIf="diario.imagens.length > 0; else placeholder" mat-card-image [src]="diario.imagens[0]" alt="Photo of a Shiba Inu" />
-                <ng-template #placeholder>
-                <img mat-card-image src="assets/img/placeholder.png"
-                alt="Photo of a Shiba Inu" />
-                </ng-template>
+              <div class="col" *ngIf="diario.imagens.length > 0">
+                <img [src]="diario.imagens[0]" alt="" class="gridesquerda" />
               </div>
             </div>
           </div>
@@ -102,7 +98,7 @@
           <mat-tab label="TIMELINE">
             <ng-template mat-tab-label>
               <div class="td active">
-                <i class="material-icons">av_timer</i><span>TIMELINE</span>
+                <span>Timeline</span>
               </div>
             </ng-template>
 
@@ -127,12 +123,6 @@
                   }}</mat-card-subtitle>
                 </mat-card-header>
                 <div>
-                  <!-- <img *ngIf="diario.imagens.length > 0; else placeholder" mat-card-image [src]="diario.imagens[0]" alt="Photo of a Shiba Inu" />
-                  <ng-template #placeholder>
-                    <img mat-card-image src="assets/img/placeholder.png"
-                      alt="Photo of a Shiba Inu" />
-                  </ng-template> -->
-                  <!-- --------- -->
                   <ngb-carousel *ngIf="diario.imagens.length > 1; else placeholder">
                     <ng-template ngbSlide *ngFor="let imagem of diario.imagens">
                       <div class="picsum-img-wrapper">
@@ -147,7 +137,6 @@
                         <img #imagemUnica mat-card-image [src]="diario.imagens[0]" alt="Photo of a Shiba Inu" />
                       </ng-template>
                   </ng-template>
-                  <!-- --------- -->
             </div>
 
                 <h2>{{ diario.titulo }}</h2>
@@ -194,10 +183,19 @@
                   }}</mat-card-subtitle>
                 </mat-card-header>
                 <div>
-                  <img *ngIf="diario.imagens.length > 0; else placeholder" mat-card-image [src]="diario.imagens[0]" alt="Photo of a Shiba Inu" />
+                  <ngb-carousel *ngIf="diario.imagens.length > 1; else placeholder">
+                    <ng-template ngbSlide *ngFor="let imagem of diario.imagens">
+                      <div class="picsum-img-wrapper">
+                        <img [src]="imagem" alt="Random first slide">
+                      </div>
+                    </ng-template>
+                  </ngb-carousel>
+
                   <ng-template #placeholder>
-                    <img mat-card-image src="assets/img/placeholder.png"
-                      alt="Photo of a Shiba Inu" />
+                    <img class="imgDiario" *ngIf="diario.imagens.length == 0; else imagemUnica" mat-card-image src="assets/img/placeholder.png" alt="Photo of a Shiba Inu" />
+                      <ng-template #imagemUnica>
+                        <img #imagemUnica mat-card-image [src]="diario.imagens[0]" alt="Photo of a Shiba Inu" />
+                      </ng-template>
                   </ng-template>
             </div>
 
@@ -327,15 +325,4 @@
   <ng-template #loading>
     <app-loader label="Carregando todos os diários..."></app-loader>
   </ng-template>
-
-  <div class="fab-wrapper">
-    <button (click)="onClickAdd()" mat-fab color="primary">
-      <mat-icon
-        matTooltip="Click para adicionar seu diário"
-        matTooltipPosition="below"
-        matTooltipShowDelay="1000"
-        >add</mat-icon
-      >
-    </button>
-  </div>
 </div>
