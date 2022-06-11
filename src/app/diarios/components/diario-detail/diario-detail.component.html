@@ -4,7 +4,17 @@
       <mat-card-title>{{ diario.usuarioName }}</mat-card-title>
       <mat-card-subtitle>{{ diario.usuarioNick }}</mat-card-subtitle>
     </mat-card-header>
-    <img mat-card-image [src]="diario.imagem" alt="Photo of a Shiba Inu" />
+    <ngb-carousel *ngIf="imagens.length > 0; else placeholder">
+      <ng-template ngbSlide *ngFor="let imagem of imagens">
+        <div class="picsum-img-wrapper">
+          <img [src]="imagem" alt="Random first slide">
+        </div>
+      </ng-template>
+    </ngb-carousel>
+
+    <ng-template #placeholder>
+      <img mat-card-image src="assets/img/placeholder.png" alt="Photo of a Shiba Inu" />
+    </ng-template>
     <mat-card-content>
       <h2>{{ diario.titulo }}</h2>
       <small>{{ diario.data | date }} | {{ diario.local }}</small>

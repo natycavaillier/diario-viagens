@@ -6,7 +6,7 @@ export interface Diario {
   corpo: string;
   local: string;
   data: Date;
-  imagem?: string;
+  imagens: string[];
 
   createdAt: Date;
   usuarioId?: string;
