@@ -50,7 +50,11 @@
           >
             <div class="" *ngFor="let diario of diarios">
               <div class="col">
-                <img [src]="diario.imagem" alt="" class="gridesquerda" />
+                <img *ngIf="diario.imagens.length > 0; else placeholder" mat-card-image [src]="diario.imagens[0]" alt="Photo of a Shiba Inu" />
+                <ng-template #placeholder>
+                <img mat-card-image src="assets/img/placeholder.png"
+                alt="Photo of a Shiba Inu" />
+                </ng-template>
               </div>
             </div>
           </div>
@@ -114,7 +118,7 @@
                       mat-card-image
                       [src]="
                         diario.imagemprofile ?? 'assets/img/placeholder.png'
-                      "
+                      " alt="Imagem do perfil"
                     />
                   </div>
                   <mat-card-title>{{ diario.usuarioName }}</mat-card-title>
@@ -122,18 +126,32 @@
                     diario.usuarioNick
                   }}</mat-card-subtitle>
                 </mat-card-header>
+                <div>
+                  <!-- <img *ngIf="diario.imagens.length > 0; else placeholder" mat-card-image [src]="diario.imagens[0]" alt="Photo of a Shiba Inu" />
+                  <ng-template #placeholder>
+                    <img mat-card-image src="assets/img/placeholder.png"
+                      alt="Photo of a Shiba Inu" />
+                  </ng-template> -->
+                  <!-- --------- -->
+                  <ngb-carousel *ngIf="diario.imagens.length > 1; else placeholder">
+                    <ng-template ngbSlide *ngFor="let imagem of diario.imagens">
+                      <div class="picsum-img-wrapper">
+                        <img [src]="imagem" alt="Random first slide">
+                      </div>
+                    </ng-template>
+                  </ngb-carousel>
+
+                  <ng-template #placeholder>
+                    <img *ngIf="diario.imagens.length == 0; else imagemUnica" mat-card-image src="assets/img/placeholder.png" alt="Photo of a Shiba Inu" />
+                      <ng-template #imagemUnica>
+                        <img #imagemUnica mat-card-image [src]="diario.imagens[0]" alt="Photo of a Shiba Inu" />
+                      </ng-template>
+                  </ng-template>
+                  <!-- --------- -->
+            </div>
 
                 <h2>{{ diario.titulo }}</h2>
                 <p>{{ diario.corpo }}</p>
-
-                <a [routerLink]="diario.id" >
-                <img
-                  mat-card-image
-                  [src]="diario.imagem"
-                  alt="erro"
-                />
-
-              </a>
 
                   <small class="datadiario">{{ diario.data | date }} | {{ diario.local }}</small>
 
@@ -156,7 +174,68 @@
 
           <mat-tab label="Meus diários" id="meudiarios">
             <div *ngIf="meusDiarios$ | async as diarios; else loading">
-              <mat-card *ngFor="let diario of diarios" id="example-card2">
+              <mat-card *ngFor="let diario of diarios" class="example-card2">
+                <mat-card-header>
+                  <div
+                    mat-card-avatar
+                    class="example-header-image divFotoPerfil"
+                  >
+                    <img
+                      class="fotoPerfil"
+                      mat-card-image
+                      [src]="
+                        diario.imagemprofile ?? 'assets/img/placeholder.png'
+                      " alt="Imagem do perfil"
+                    />
+                  </div>
+                  <mat-card-title>{{ diario.usuarioName }}</mat-card-title>
+                  <mat-card-subtitle>{{
+                    diario.usuarioNick
+                  }}</mat-card-subtitle>
+                </mat-card-header>
+                <div>
+                  <img *ngIf="diario.imagens.length > 0; else placeholder" mat-card-image [src]="diario.imagens[0]" alt="Photo of a Shiba Inu" />
+                  <ng-template #placeholder>
+                    <img mat-card-image src="assets/img/placeholder.png"
+                      alt="Photo of a Shiba Inu" />
+                  </ng-template>
+            </div>
+
+                <h2>{{ diario.titulo }}</h2>
+                <p>{{ diario.corpo }}</p>
+
+                  <small class="datadiario">{{ diario.data | date }} | {{ diario.local }}</small>
+
+
+                  <mat-card-actions>
+                    <button
+                      (click)="onClickEdit(diario)"
+                      mat-icon-button
+                      color="primary"
+                    >
+                      <mat-icon
+                        matTooltip="Click para editar"
+                        matTooltipPosition="below"
+                        matTooltipShowDelay="1000"
+                        >edit</mat-icon
+                      >
+                    </button>
+                    <button
+                      (click)="onClickDelete(diario)"
+                      mat-icon-button
+                      color="warn"
+                    >
+                      <mat-icon
+                        matTooltip="Click para deletar"
+                        matTooltipPosition="below"
+                        matTooltipShowDelay="1000"
+                        >delete</mat-icon
+                      >
+                    </button>
+                  </mat-card-actions>
+              </mat-card>
+
+              <!-- <mat-card *ngFor="let diario of diarios" id="example-card2">
                 <mat-card-header>
                   <div
                     mat-card-avatar
@@ -166,7 +245,7 @@
                       mat-card-image
                       [src]="
                         diario.imagemprofile ?? 'assets/img/placeholder.png'
-                      "
+                      " alt="Imagem de perfil"
                     />
                   </div>
                   <mat-card-title>{{ diario.usuarioName }}</mat-card-title>
@@ -176,11 +255,11 @@
                 </mat-card-header>
 
                   <div>
-                <img
-                  mat-card-image
-                  [src]="diario.imagem"
-                  alt="Photo of a Shiba Inu"
-                />
+                    <img *ngIf="diario.imagens.length > 0; else placeholder" mat-card-image [src]="diario.imagens[0]" alt="Photo of a Shiba Inu" />
+                    <ng-template #placeholder>
+                      <img mat-card-image src="assets/img/placeholder.png"
+                        alt="Photo of a Shiba Inu" />
+                    </ng-template>
               </div>
 
               <mat-card-content>
@@ -214,7 +293,7 @@
                     >
                   </button>
                 </mat-card-actions>
-              </mat-card>
+              </mat-card> -->
             </div>
           </mat-tab>
         </mat-tab-group>

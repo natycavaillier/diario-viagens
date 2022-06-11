@@ -20,6 +20,7 @@ export class DiarioDetailComponent implements OnInit {
 
   diario$?: Observable<Diario>;
   diarioJaCurtido!: boolean;
+  imagens: string[] = [];
 
 
   onClickLike(diario: Diario) {
@@ -40,6 +41,10 @@ export class DiarioDetailComponent implements OnInit {
           .subscribe({
             next: (boolean) => this.diarioJaCurtido = boolean
           });
+
+          diario.imagens.forEach((imagem) => {
+            this.imagens.push(imagem);
+          })
       }
     });
   }

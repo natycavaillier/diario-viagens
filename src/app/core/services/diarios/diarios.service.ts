@@ -87,42 +87,31 @@ export class DiariosService {
     return docData(diarioDoc, { idField: 'id' });
   }
 
-  addDiario(diario: Diario, imagem?: File) {
+  addDiario(diario: Diario, links: string[]) {
 
     return this.authService.userData.pipe(
-
       switchMap((user) => {
-        return this.uploadService
-          .upload(imagem, `diarios/${this.authService.uid}/`)
-          .pipe(
-            switchMap((url) => {
-              diario.createdAt = new Date();
-              diario.imagem = url ?? 'assets/img/placeholder.png';
-              diario.usuarioId = this.authService.uid;
-              diario.usuarioNick = user['nick'];
-              diario.usuarioName = user['nome'];
-              diario.imagemprofile = user['imagemprofile'];
-              diario.usersLiked = [];
+        diario.createdAt = new Date();
+        // diario.imagens = links ?? ['assets/img/placeholder.png'];
+        diario.imagens = links;
+        diario.usuarioId = this.authService.uid;
+        diario.usuarioNick = user['nick'];
+        diario.usuarioName = user['nome'];
+        diario.imagemprofile = user['imagemprofile'];
+        diario.usersLiked = [];
 
-              return from(addDoc(this.diarios, diario));
-            })
-          );
+        return from(addDoc(this.diarios, diario));
       })
     );
   }
 
-  editDiario(diario: Diario, imagem?: File ) {
+  editDiario(diario: Diario, links: string[]) {
+    const arrayVazio: string[] = []
+    console.log(links)
     const diarioDoc = doc(this.diarios, diario.id);
-    return this.uploadService
-      .upload(imagem, `diarios/${diario.usuarioId}/`)
-      .pipe(
-        switchMap((url) => {
-
-          return from(
-            updateDoc(diarioDoc, { ...diario, imagem: url ?? diario.imagem })
-          );
-        })
-      );
+    return from(
+      updateDoc(diarioDoc, { ...diario, imagens: links ?? arrayVazio })
+    );
   }
 
   deleteDiario(diario: Diario) {

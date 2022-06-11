@@ -9,6 +9,8 @@ import { DiarioAddComponent } from './components/diario-add/diario-add.component
 import { DiarioDetailComponent } from './components/diario-detail/diario-detail.component';
 import { DiarioEditComponent } from './components/diario-edit/diario-edit.component';
 import { DiarioListComponent } from './components/diario-list/diario-list.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 
 @NgModule({
@@ -24,7 +26,8 @@ import { DiarioListComponent } from './components/diario-list/diario-list.compon
     MaterialModule,
     SharedModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbModule
   ]
 })
 export class DiariosModule { }

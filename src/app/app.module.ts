@@ -17,6 +17,7 @@ import { NgChartsModule } from 'ng2-charts';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { provideDatabase,getDatabase } from '@angular/fire/database';
 import { HomeModule } from './home/home.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { HomeModule } from './home/home.module';
       position: 'bottom-center',
     }),
     DashboardModule,
-    provideDatabase(() => getDatabase())
+    provideDatabase(() => getDatabase()),
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent],

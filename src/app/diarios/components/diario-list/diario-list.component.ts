@@ -53,7 +53,7 @@ export class DiarioListComponent implements OnInit {
       next: (result) => {
         if (result) {
           this.diariosService
-            .addDiario(result.diario, result.imagem)
+            .addDiario(result.diario, result.links)
             .pipe(
               this.toast.observe({
                 loading: 'Adicionando...',
@@ -92,8 +92,8 @@ export class DiarioListComponent implements OnInit {
     ref.afterClosed().subscribe({
       next: (result) => {
         if (result) {
-          this.diariosService
-            .editDiario(result.diario, result.imagem)
+          this.diariosService   
+            .editDiario(result.diario, result.links)
             .pipe(
               this.toast.observe({
                 loading: 'Atualizando...',
