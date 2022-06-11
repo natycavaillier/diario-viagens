@@ -2,6 +2,11 @@
   flex: 1 1 auto;
 }
 
-a {
+a, button, span {
   color: white;
+  text-decoration: none;
+}
+
+.selectColor {
+  color: black;
 }

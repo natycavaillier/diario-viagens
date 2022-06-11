@@ -19,6 +19,13 @@
   border-radius: 50%;
 }
 
+.picsum-img-wrapper {
+  width: 100%;
+  min-height: 500px;
+  max-height: 500px;
+  object-fit: cover;
+}
+
 .divFotoPerfil {
   margin-top: 2px;
   margin-left: 2px;
@@ -1036,5 +1043,23 @@ h2{
     height: 260px;
     overflow: hidden;
     z-index: 1;
+  }
+}
+
+@media (min-width: 700px) and (max-width: 1000px){
+  .picsum-img-wrapper {
+    width: 100%;
+    min-height: 400px;
+    max-height: 400px;
+    object-fit: cover;
+  }
+}
+
+@media (min-width: 100px) and (max-width: 700px){
+  .picsum-img-wrapper {
+    width: 100%;
+    min-height: 200px;
+    max-height: 200px;
+    object-fit: cover;
   }
 }

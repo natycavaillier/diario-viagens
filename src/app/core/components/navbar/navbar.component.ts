@@ -30,17 +30,15 @@ export class NavbarComponent implements OnInit {
   }
 
  
-  cor: string = "primary";
+  cor: string = '#1877f2';
 
   onClickPrimary(){
-    this.cor = "primary";
+    this.cor = '#1877f2';  
   }
 
   onClickAccent(){
-    this.cor = "accent";
+    this.cor = '#e91e63';
   }
-
-
 
   ngOnInit(): void {
     this.logged$ = this.authService.logged;

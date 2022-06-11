@@ -1,13 +1,16 @@
-    <mat-toolbar color="{{cor}}">
-  <a
+<mat-toolbar [ngStyle]="{'background-color': cor}">
+  <!-- <a
     mat-button
     routerLink="/diarios"
     matTooltip="ir para página principal"
     matTooltipPosition="below"
     matTooltipShowDelay="1000"
-  >
-    <mat-icon>auto_stories</mat-icon>
-    </a>
+  > -->
+  <button  matTooltip="ir para página principal" mat-icon-button>
+    <mat-icon>airlines</mat-icon>
+  </button>
+  <a routerLink="/diarios">Best Travel</a>
+    <!-- </a> -->
   <span class="spacer"></span>
   <div *ngIf="logged$ | async as login; else unlogged" class="link-area">
     <a
@@ -31,8 +34,8 @@
       <mat-icon>format_color_fill</mat-icon>
     </button>
     <mat-menu #belowMenu="matMenu" yPosition="below">
-      <button mat-menu-item (click)="onClickPrimary()" >Indigo</button>
-      <button mat-menu-item (click)="onClickAccent()">Pink</button>
+      <button class="selectColor" mat-menu-item (click)="onClickPrimary()" >Blue</button>
+      <button class="selectColor" mat-menu-item (click)="onClickAccent()">Pink</button>
     </mat-menu>
 
     
@@ -64,6 +67,13 @@
         matTooltipShowDelay="1000"
         >Cadastro</a
       >
+      <button mat-button [matMenuTriggerFor]="belowMenu" matTooltip="Selecione a cor">
+        <mat-icon>format_color_fill</mat-icon>
+      </button>
+      <mat-menu #belowMenu="matMenu" yPosition="below">
+        <button class="selectColor" mat-menu-item (click)="onClickPrimary()" >Blue</button>
+        <button class="selectColor" mat-menu-item (click)="onClickAccent()">Pink</button>
+      </mat-menu>
     </div>
   </ng-template>
 </mat-toolbar>
