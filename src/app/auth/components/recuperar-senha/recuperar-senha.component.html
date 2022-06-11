@@ -1,16 +1,25 @@
 <div class="form-wrapper">
   <form #form="ngForm" (ngSubmit)="onSubmit()">
-    <h2>Recuperação de senha</h2>
-    <span
-      >Um email será enviado para você com o processo de redefinir senha</span
-    >
-    <mat-form-field appearance="fill">
-      <mat-label>Email</mat-label>
-      <input matInput placeholder="Seu email" type="email" name="email" [(ngModel)]="email" required />
-      <mat-icon matPrefix>email</mat-icon>
-    </mat-form-field>
-    <button mat-raised-button color="primary" [disabled]="form.invalid">
-      Enviar
-    </button>
+    <div class="content">
+      <div class="flex-div">
+        <div class="name-content">
+          <h1 class="RecuperaSenha">Recuperar Senha...</h1><br>
+          <p>Que pena você esqueceu a sua Senha?<br>
+            Não tem Problema...<br>
+            Um email será enviado para você com o processo para redefinir sua senha.</p>
+          <p>Caso ainda não tenha uma conta, faça seu Cadastro <a routerLink="/cadastro">aqui</a>.</p>
+        </div>
+        <div class="form">
+          <mat-form-field appearance="fill">
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="Seu email" type="email" name="email" [(ngModel)]="email" required />
+            <mat-icon matPrefix>email</mat-icon>
+          </mat-form-field>
+          <button mat-raised-button color="primary" [disabled]="form.invalid">
+            Enviar
+          </button>
+        </div>
+      </div>
+    </div>
   </form>
 </div>
