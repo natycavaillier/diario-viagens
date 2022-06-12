@@ -50,7 +50,7 @@
           >
             <div class="" *ngFor="let diario of diarios">
               <div class="col" *ngIf="diario.imagens.length > 0">
-                <img [src]="diario.imagens[0]" alt="" class="gridesquerda" />
+                <img [routerLink]="diario.id" [src]="diario.imagens[0]" alt="" class="gridesquerda" />
               </div>
             </div>
           </div>
@@ -103,7 +103,7 @@
             </ng-template>
 
             <div *ngIf="allDiarios$ | async as diarios; else loading">
-              <mat-card *ngFor="let diario of diarios" class="example-card">
+              <mat-card [routerLink]="diario.id" *ngFor="let diario of diarios" class="example-card">
                 <mat-card-header>
                   <div
                     mat-card-avatar
@@ -132,9 +132,14 @@
                   </ngb-carousel>
 
                   <ng-template #placeholder>
-                    <img *ngIf="diario.imagens.length == 0; else imagemUnica" mat-card-image src="assets/img/placeholder.png" alt="Photo of a Shiba Inu" />
+                    <div *ngIf="diario.imagens.length == 0; else imagemUnica">
+                    </div>
+                    
                       <ng-template #imagemUnica>
-                        <img #imagemUnica mat-card-image [src]="diario.imagens[0]" alt="Photo of a Shiba Inu" />
+                        <div class="picsum-img-wrapper">
+                          <img [src]="diario.imagens[0]" alt="Photo of a Shiba Inu" />
+                        </div>
+                        
                       </ng-template>
                   </ng-template>
             </div>
@@ -146,14 +151,14 @@
 
 
                 <mat-card-actions>
-                  <a [routerLink]="diario.id" mat-icon-button color="primary">
+                  <!-- <a [routerLink]="diario.id" mat-icon-button color="primary">
                     <mat-icon
                       matTooltip="Click para visualizar"
                       matTooltipPosition="above"
                       matTooltipShowDelay="1000"
                       >visibility</mat-icon
                     >
-                  </a>
+                  </a> -->
 
                   <tr></tr>
                 </mat-card-actions>
@@ -162,7 +167,7 @@
           </mat-tab>
 
           <mat-tab label="Meus diários" id="meudiarios">
-            <div *ngIf="meusDiarios$ | async as diarios; else loading">
+            <div [routerLink]="diario.id" *ngIf="meusDiarios$ | async as diarios; else loading">
               <mat-card *ngFor="let diario of diarios" class="example-card2">
                 <mat-card-header>
                   <div

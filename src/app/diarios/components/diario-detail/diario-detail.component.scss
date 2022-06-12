@@ -1,6 +1,128 @@
+@import '~bootstrap/scss/bootstrap';
+
 .curtidas {
     color: rgb(107, 107, 107);
     font-size: small;
 }
 
-@import '~bootstrap/scss/bootstrap';
+.div-carrossel {
+    width: 70%;
+    height: 680px;
+
+}
+
+.img-carrossel {
+    width: 100%;
+    max-height: 680px;
+    min-height: 680px;
+    object-fit: contain;
+    background-color: black;
+}
+
+.div-informacoes {
+    padding: 3vh 2vh;
+    width: 30%;
+    height: 680px;
+    background-color: #242526;
+    color: white;
+}
+
+.div-apenas-informacoes{
+    padding: 3vh 2vh;
+    width: 100%;
+    height: 680px;
+    background-color: #242526;
+    color: white;
+}
+
+.div-informacoes h5 {
+    margin-bottom: 0.5rem;
+
+}
+
+.div-informacoes p {
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+}
+
+.fotoPerfil {
+    padding: 2px;
+    border-radius: 50%;
+    width: 65px;
+    height: 65px;
+    object-fit: cover;
+}
+
+.div-informacoes .div-cabecalho-nome {
+    margin-left: 0.5rem;
+}
+
+.div-corpo {
+    margin-top: 7vh;
+}
+
+.div-corpo h6 {
+    margin-top: 5vh;
+    text-align: justify;
+}
+
+.data-e-local {
+    text-align: end;
+}
+
+
+// .picsum-img-wrapper{
+//     width: 60%;
+//     height: 60%;
+
+// }
+
+
+
+
+
+// mat-grid-list {
+//     margin: 0;
+//     padding: 0;
+
+// }
+
+// div.mat-grid-tile-content {
+//     height: 100%;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     margin: auto;
+// }
+
+// ngb-carousel {
+//     margin: 0;
+//     height: 100%;
+// }
+
+// .picsum-img-wrapper {
+
+// }
+
+// .imgCarrossel {
+//     width: 100%;
+//     margin: 0;
+//     min-height: 500px;
+//     max-height: 500px;
+//     object-fit: cover;
+// }
+
+// .picsum-img-wrapper>img {
+//     width: 100%;
+//     margin: 0;
+//     min-height: 100%;
+//     max-height: 100%;
+//     object-fit: cover;
+// }
+
+// .picsum-img-wrapper {
+//     width: 100%;
+//     min-height: 100%;
+//     max-height: 100%;
+//     object-fit: cover;
+// }
