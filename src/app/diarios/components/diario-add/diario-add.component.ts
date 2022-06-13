@@ -23,6 +23,8 @@ export class DiarioAddComponent implements OnInit {
   diario: Diario = {} as Diario;
   imagens: File[] = [];
   links: string[] = [];
+  upload: string = "Fazer Upload Imagens"
+  icone: string = "upload"
 
   setImage(ev: any) {
     for (var imagem of ev.target.files) {
@@ -45,8 +47,13 @@ export class DiarioAddComponent implements OnInit {
               next: (url) => {
                 if (url) {
                   this.links.push(url);
-                }
+                }        
+              },
+              complete: () => {
+                this.upload = "Upload Realizado",
+                this.icone = "check"                       
               }
+    
             })
         }
       });
