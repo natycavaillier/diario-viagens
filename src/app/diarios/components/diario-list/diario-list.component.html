@@ -1,22 +1,14 @@
 <main>
   <div class="container" id="profile-upper" *ngIf="user$ | async as user">
     <div id="profile-banner-image">
-      <img
-        src="http://leoaraujo.com/wp-content/uploads/2020/01/soul-code.jpg"
-        alt="Banner image"
-      />
+      <img src="http://leoaraujo.com/wp-content/uploads/2020/01/soul-code.jpg" alt="Banner image" />
     </div>
 
     <div id="profile-d">
       <div id="profile-pic">
         <img [src]="user.photoURL" (click)="inputField.click()" />
 
-        <input
-          #inputField
-          hidden
-          type="file"
-          (change)="uploadImage($event, user)"
-        />
+        <input #inputField hidden type="file" (change)="uploadImage($event, user)" />
       </div>
       <div *ngIf="users$ | async as user" id="u-name">{{ user.nome }}</div>
     </div>
@@ -44,13 +36,10 @@
             </div>
           </div>
 
-          <div
-            id="photos"
-            *ngIf="meusDiarios$ | async as diarios; else loading"
-          >
+          <div id="photos" *ngIf="meusDiarios$ | async as diarios; else loading">
             <div class="" *ngFor="let diario of diarios">
               <div class="col" *ngIf="diario.imagens.length > 0">
-                <img [src]="diario.imagens[0]" alt="" class="gridesquerda" />
+                <img (click)="onClickDetail(diario)" [src]="diario.imagens[0]" alt="" class="gridesquerda" />
               </div>
             </div>
           </div>
@@ -104,59 +93,39 @@
 
             <div *ngIf="allDiarios$ | async as diarios; else loading">
               <mat-card *ngFor="let diario of diarios" class="example-card">
-                <mat-card-header>
-                  <div
-                    mat-card-avatar
-                    class="example-header-image divFotoPerfil"
-                  >
-                    <img
-                      class="fotoPerfil"
-                      mat-card-image
-                      [src]="
+                <mat-card-header (click)="onClickDetail(diario)">
+                  <div mat-card-avatar class="example-header-image divFotoPerfil">
+                    <img class="fotoPerfil" mat-card-image [src]="
                         diario.imagemprofile ?? 'assets/img/placeholder.png'
-                      " alt="Imagem do perfil"
-                    />
+                      " alt="Imagem do perfil" />
                   </div>
                   <mat-card-title>{{ diario.usuarioName }}</mat-card-title>
                   <mat-card-subtitle>{{
                     diario.usuarioNick
-                  }}</mat-card-subtitle>
+                    }}</mat-card-subtitle>
                 </mat-card-header>
                 <div>
-                  <ngb-carousel *ngIf="diario.imagens.length > 1; else placeholder">
+                  <ngb-carousel *ngIf="diario.imagens.length > 1; else imagemUnica">
                     <ng-template ngbSlide *ngFor="let imagem of diario.imagens">
                       <div class="picsum-img-wrapper">
-                        <img [src]="imagem" alt="Random first slide">
+                        <img (click)="onClickDetail(diario)" [src]="imagem" alt="Random first slide">
                       </div>
                     </ng-template>
                   </ngb-carousel>
 
-                  <ng-template #placeholder>
-                    <img *ngIf="diario.imagens.length == 0; else imagemUnica" mat-card-image src="assets/img/placeholder.png" alt="Photo of a Shiba Inu" />
-                      <ng-template #imagemUnica>
-                        <img #imagemUnica mat-card-image [src]="diario.imagens[0]" alt="Photo of a Shiba Inu" />
-                      </ng-template>
+                  <ng-template #imagemUnica>
+                    <div *ngIf="diario.imagens.length == 1" class="picsum-img-wrapper">
+                      <img (click)="onClickDetail(diario)" [src]="diario.imagens[0]" alt="Foto diário" />
+                    </div>
                   </ng-template>
-            </div>
+                </div>
+                <div (click)="onClickDetail(diario)">
 
-                <h2>{{ diario.titulo }}</h2>
-                <p>{{ diario.corpo }}</p>
+                  <h2>{{ diario.titulo }}</h2>
+                  <p>{{ diario.corpo }}</p>
 
                   <small class="datadiario">{{ diario.data | date }} | {{ diario.local }}</small>
-
-
-                <mat-card-actions>
-                  <a [routerLink]="diario.id" mat-icon-button color="primary">
-                    <mat-icon
-                      matTooltip="Click para visualizar"
-                      matTooltipPosition="above"
-                      matTooltipShowDelay="1000"
-                      >visibility</mat-icon
-                    >
-                  </a>
-
-                  <tr></tr>
-                </mat-card-actions>
+                </div>
               </mat-card>
             </div>
           </mat-tab>
@@ -164,162 +133,60 @@
           <mat-tab label="Meus diários" id="meudiarios">
             <div *ngIf="meusDiarios$ | async as diarios; else loading">
               <mat-card *ngFor="let diario of diarios" class="example-card2">
-                <mat-card-header>
-                  <div
-                    mat-card-avatar
-                    class="example-header-image divFotoPerfil"
-                  >
-                    <img
-                      class="fotoPerfil"
-                      mat-card-image
-                      [src]="
+                <mat-card-header (click)="onClickDetail(diario)">
+                  <div mat-card-avatar class="example-header-image divFotoPerfil">
+                    <img class="fotoPerfil" mat-card-image [src]="
                         diario.imagemprofile ?? 'assets/img/placeholder.png'
-                      " alt="Imagem do perfil"
-                    />
+                      " alt="Imagem do perfil" />
                   </div>
                   <mat-card-title>{{ diario.usuarioName }}</mat-card-title>
                   <mat-card-subtitle>{{
                     diario.usuarioNick
-                  }}</mat-card-subtitle>
+                    }}</mat-card-subtitle>
                 </mat-card-header>
                 <div>
-                  <ngb-carousel *ngIf="diario.imagens.length > 1; else placeholder">
+                  <ngb-carousel *ngIf="diario.imagens.length > 1; else imagemUnica">
                     <ng-template ngbSlide *ngFor="let imagem of diario.imagens">
                       <div class="picsum-img-wrapper">
-                        <img [src]="imagem" alt="Random first slide">
+                        <img (click)="onClickDetail(diario)" [src]="imagem" alt="Random first slide">
                       </div>
                     </ng-template>
                   </ngb-carousel>
 
-                  <ng-template #placeholder>
-                    <img class="imgDiario" *ngIf="diario.imagens.length == 0; else imagemUnica" mat-card-image src="assets/img/placeholder.png" alt="Photo of a Shiba Inu" />
-                      <ng-template #imagemUnica>
-                        <img #imagemUnica mat-card-image [src]="diario.imagens[0]" alt="Photo of a Shiba Inu" />
-                      </ng-template>
+                  <ng-template #imagemUnica>
+                    <div *ngIf="diario.imagens.length == 1" class="picsum-img-wrapper">
+                      <img (click)="onClickDetail(diario)" [src]="diario.imagens[0]" alt="Foto diário" />
+                    </div>
                   </ng-template>
-            </div>
-
-                <h2>{{ diario.titulo }}</h2>
-                <p>{{ diario.corpo }}</p>
+                </div>
+                <div (click)="onClickDetail(diario)">
+                  <h2>{{ diario.titulo }}</h2>
+                  <p>{{ diario.corpo }}</p>
 
                   <small class="datadiario">{{ diario.data | date }} | {{ diario.local }}</small>
 
-
-                  <mat-card-actions>
-                    <button
-                      (click)="onClickEdit(diario)"
-                      mat-icon-button
-                      color="primary"
-                    >
-                      <mat-icon
-                        matTooltip="Click para editar"
-                        matTooltipPosition="below"
-                        matTooltipShowDelay="1000"
-                        >edit</mat-icon
-                      >
-                    </button>
-                    <button
-                      (click)="onClickDelete(diario)"
-                      mat-icon-button
-                      color="warn"
-                    >
-                      <mat-icon
-                        matTooltip="Click para deletar"
-                        matTooltipPosition="below"
-                        matTooltipShowDelay="1000"
-                        >delete</mat-icon
-                      >
-                    </button>
-                  </mat-card-actions>
-              </mat-card>
-
-              <!-- <mat-card *ngFor="let diario of diarios" id="example-card2">
-                <mat-card-header>
-                  <div
-                    mat-card-avatar
-                    class="example-header-image divFotoPerfil"    >
-                    <img
-                      class="fotoPerfil"
-                      mat-card-image
-                      [src]="
-                        diario.imagemprofile ?? 'assets/img/placeholder.png'
-                      " alt="Imagem de perfil"
-                    />
-                  </div>
-                  <mat-card-title>{{ diario.usuarioName }}</mat-card-title>
-                  <mat-card-subtitle>{{
-                    diario.usuarioNick
-                  }}</mat-card-subtitle>
-                </mat-card-header>
-
-                  <div>
-                    <img *ngIf="diario.imagens.length > 0; else placeholder" mat-card-image [src]="diario.imagens[0]" alt="Photo of a Shiba Inu" />
-                    <ng-template #placeholder>
-                      <img mat-card-image src="assets/img/placeholder.png"
-                        alt="Photo of a Shiba Inu" />
-                    </ng-template>
-              </div>
-
-              <mat-card-content>
-                <h2>{{ diario.titulo }}</h2>
-                <small>{{ diario.data | date }} | {{ diario.local }}</small>
-                <p>{{ diario.corpo }}</p>
-              </mat-card-content>
+                </div>
                 <mat-card-actions>
-                  <button
-                    (click)="onClickEdit(diario)"
-                    mat-icon-button
-                    color="primary"
-                  >
-                    <mat-icon
-                      matTooltip="Click para editar"
-                      matTooltipPosition="below"
-                      matTooltipShowDelay="1000"
-                      >edit</mat-icon
-                    >
+                  <button (click)="onClickEdit(diario)" mat-icon-button color="primary">
+                    <mat-icon matTooltip="Click para editar" matTooltipPosition="below" matTooltipShowDelay="1000">edit
+                    </mat-icon>
                   </button>
-                  <button
-                    (click)="onClickDelete(diario)"
-                    mat-icon-button
-                    color="warn"
-                  >
-                    <mat-icon
-                      matTooltip="Click para deletar"
-                      matTooltipPosition="below"
-                      matTooltipShowDelay="1000"
-                      >delete</mat-icon
-                    >
+                  <button (click)="onClickDelete(diario)" mat-icon-button color="warn">
+                    <mat-icon matTooltip="Click para deletar" matTooltipPosition="below" matTooltipShowDelay="1000">
+                      delete</mat-icon>
                   </button>
                 </mat-card-actions>
-              </mat-card> -->
+              </mat-card>
             </div>
           </mat-tab>
         </mat-tab-group>
 
-
         <div id="loading"><i></i></div>
       </div>
-      <!-- <div class="td" id="r-col">
-        <div id="chat-bar">
-          <div id="chat-lb">
-            <i class="material-icons">contacts</i><span>Contatos</span>
-          </div>
-          <div id="cts">
-            <div class="on-ct active">
-              <a href="#"
-                ><img
-                  src="https://imagizer.imageshack.com/img924/4231/JnFicn.jpg"
-              /></a>
-            </div>
-          </div>
-        </div>
-      </div> -->
     </div>
   </div>
   <div id="device-bar-2"><i class="fab fa-apple"></i></div>
 </main>
-
-<!-- =================================================================== -->
 
 <div>
   <ng-template #loading>

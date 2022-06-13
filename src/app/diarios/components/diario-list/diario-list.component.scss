@@ -19,11 +19,14 @@
   border-radius: 50%;
 }
 
-.picsum-img-wrapper {
+.picsum-img-wrapper>img {
   width: 100%;
   min-height: 500px;
   max-height: 500px;
-  object-fit: cover;
+  // object-fit: cover;
+  object-fit: contain;
+  background-color: black;
+
 }
 
 .divFotoPerfil {
@@ -51,6 +54,10 @@ img {
   display: block;
   width: 100%;
   border: 0;
+}
+
+mat-card {
+  cursor: pointer;
 }
 
 .tb {
@@ -288,9 +295,9 @@ header {
   margin: 0 -18px 10px 0px;
 }
 
-// .mat-card{
-//   width: 100%;
-// }
+.mat-card{
+  margin-bottom: 10px;
+}
 
 h2{
   margin: 0px -1px 3px;
@@ -430,7 +437,7 @@ h2{
 }
 
 .gridesquerda{
-
+  object-fit: cover;
   width: 110px;
   height: 110px;
   margin-bottom: 2px;
@@ -1013,6 +1020,7 @@ h2{
   border-radius: 50%;
   width: 65px;
   height: 65px;
+  object-fit: cover;
 }
 
 @media (min-width: 100px) and (max-width: 1500px) {
@@ -1047,19 +1055,21 @@ h2{
 }
 
 @media (min-width: 700px) and (max-width: 1000px){
-  .picsum-img-wrapper {
+  .picsum-img-wrapper>img {
     width: 100%;
     min-height: 400px;
     max-height: 400px;
-    object-fit: cover;
+    object-fit: contain;
+  background-color: black;
   }
 }
 
 @media (min-width: 100px) and (max-width: 700px){
-  .picsum-img-wrapper {
+  .picsum-img-wrapper>img {
     width: 100%;
     min-height: 200px;
     max-height: 200px;
     object-fit: cover;
+
   }
 }
