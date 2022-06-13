@@ -1,7 +1,5 @@
 import { ImageUploadService } from 'src/app/core/services/image-upload/image-upload.service';
-import { PerfilComponent } from './../../../auth/components/perfil/perfil/perfil.component';
-import { ProfileUser } from './../../../core/models/user-profile';
-import { Auth, User } from '@angular/fire/auth';
+import { User } from '@angular/fire/auth';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { HotToastService } from '@ngneat/hot-toast';
@@ -14,6 +12,7 @@ import { DiarioEditComponent } from '../diario-edit/diario-edit.component';
 import { UsersService } from 'src/app/core/services/users/users.service';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { concatMap } from 'rxjs/operators';
+import { DiarioDetailComponent } from '../diario-detail/diario-detail.component';
 
 @Component({
   selector: 'app-diario-list',
@@ -45,7 +44,14 @@ export class DiarioListComponent implements OnInit {
     this.imagem = ev.target.files[0];
   }
 
-  
+  onClickDetail(diario: Diario) {
+    this.dialog.open(DiarioDetailComponent, {
+      panelClass: 'fullscreen-dialog',
+      maxWidth: '100%',
+      minWidth: '100%',
+      data: { ...diario },
+    });
+  }
 
   onClickAdd() {
     const ref = this.dialog.open(DiarioAddComponent, { maxWidth: '512px' });

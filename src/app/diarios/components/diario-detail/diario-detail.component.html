@@ -1,5 +1,5 @@
 <div *ngIf="diario$ | async as diario; else loading">
-  <div *ngIf="diario.imagens.length > 0; else diarioSemImagem" class="d-flex justify-content-between">
+  <div *ngIf="diario.imagens.length > 0; else diarioSemImagem" class="container-dialog">
     <div class="div-carrossel">
       <ngb-carousel *ngIf="imagens.length > 1; else imagemUnica">
         <ng-template ngbSlide *ngFor="let imagem of imagens">
@@ -16,10 +16,16 @@
     <div class="div-informacoes d-flex flex-column justify-content-between">
       <div class="informacoes-top">
         <div class="d-flex align-items-center flex-wrap">
+          
           <img class="fotoPerfil" [src]="diario.imagemprofile ?? 'assets/img/placeholder.png'" alt="Imagem do perfil" />
           <div class="div-cabecalho-nome">
             <h5>{{diario.usuarioName}}</h5>
             <p>{{diario.usuarioNick}}</p>
+          </div>
+          <div class="align-self-start ms-auto">
+            <button class="botaoFechar" mat-dialog-close mat-icon-button aria-label="Example icon button with a vertical three dot icon">
+              <mat-icon>close</mat-icon>
+            </button>
           </div>
         </div>
         <div class="informacoes-center">
@@ -50,52 +56,9 @@
 
             <p>{{ diario.data | date }}</p>
             <p>{{diario.local}}</p>
-
           </div>
         </div>
       </div>
-
-      <!-- <ngb-carousel *ngIf="diario.imagens.length > 1; else placeholder">
-        <ng-template ngbSlide *ngFor="let imagem of diario.imagens">
-          <div class="picsum-img-wrapper">
-            <img [src]="imagem" alt="Random first slide">
-          </div>
-        </ng-template>
-      </ngb-carousel>
-
-      <ng-template #placeholder>
-        <img *ngIf="diario.imagens.length == 0; else imagemUnica" src="assets/img/placeholder.png" alt="Photo of a Shiba Inu" />
-          <ng-template #imagemUnica>
-            <img #imagemUnica [src]="diario.imagens[0]" alt="Photo of a Shiba Inu" />
-          </ng-template>
-      </ng-template> -->
-
-
-      <!-- <mat-card class="example-card">
-        <mat-card-header>
-          <mat-card-title>{{ diario.usuarioName }}</mat-card-title>
-          <mat-card-subtitle>{{ diario.usuarioNick }}</mat-card-subtitle>
-        </mat-card-header>
-        
-        <mat-card-content>
-          <h2>{{ diario.titulo }}</h2>
-          <small>{{ diario.data | date }} | {{ diario.local }}</small>
-          <p>{{ diario.corpo }}</p>
-        </mat-card-content>
-            <mat-card-actions style="display: inline;">
-              <button (click)="onClickLike(diario)" mat-icon-button color="primary">
-                <span *ngIf="diarioJaCurtido; else diarioNaoCurtido" class="material-symbols-outlined diarioCurtido">
-                  thumb_up
-                </span>
-                <ng-template #diarioNaoCurtido>
-                  <span class="material-symbols-outlined diarioNaoCurtido">
-                    thumb_up
-                  </span>
-                </ng-template>
-              </button>
-            </mat-card-actions>
-            <p class="curtidas">{{diario.usersLiked.length}} curtidas</p>
-      </mat-card> -->
     </div>
   </div>
 
@@ -122,13 +85,13 @@
         <div class="div-corpo-bottom d-flex justify-content-between align-items-center">
           <div class="div-curtidas">
             <button (click)="onClickLike(diario)" mat-icon-button color="primary">
-              <span *ngIf="diarioJaCurtido; else diarioNaoCurtido" class="material-symbols-outlined diarioCurtido">
+              <mat-icon *ngIf="diarioJaCurtido; else diarioNaoCurtido" class="material-symbols-outlined diarioCurtido">
                 thumb_up
-              </span>
+              </mat-icon>
               <ng-template #diarioNaoCurtido>
-                <span class="material-symbols-outlined diarioNaoCurtido">
+                <mat-icon class="material-symbols-outlined diarioNaoCurtido">
                   thumb_up
-                </span>
+                </mat-icon>
               </ng-template>
             </button>
             <p class="curtidas d-inline">{{diario.usersLiked.length}} curtidas</p>
@@ -137,8 +100,8 @@
 
             <p>{{ diario.data | date }}</p>
             <p>{{diario.local}}</p>
-
           </div>
+
         </div>
       </div>
     </div>
