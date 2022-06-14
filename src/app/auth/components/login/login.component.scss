@@ -13,82 +13,119 @@
 
 .content {
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 55%;
+    left: 48%;
     transform: translate(-50%, -50%);
 }
 
 .flex-div {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
 }
 
 .name-content {
-    margin-right: 7rem;
+    margin-right: 5rem;
+    align-items: center;
 }
 
 .name-content .logo {
-    font-size: 3.5rem;
+    font-size: 4rem;
     color: #1877f2;
 }
 
 .name-content p {
-    font-size: 1.3rem;
-    font-weight: 500;
+    font-size: 1.02rem;
+    font-weight: 450;
     margin-bottom: 5rem;
 }
 
-.form {
+.container {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-inline: auto;
+    outline: none;
     background: #fff;
-    padding: 2rem;
-    width: 720px;
-    height: 495px;
+    padding: 18rem 1rem;
+    width: 500px;
+    height: 510px;
     border-radius: 0.5rem;
-    box-shadow: 0 2px 4px rgb(0 0 0 / 30%), 0 8px 16px rgb(0 0 0 / 30%);
+    box-shadow: 0 2px 4px rgb(0 0 0 / 40%), 0 8px 16px rgb(0 0 0 / 45%);
+}
+
+.mat-form-field{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-inline: auto;  
+    padding: 0.5rem 1rem;
 }
 
 .form input {
-    outline: none;
-    padding: 0.8rem 1rem;
-    margin-bottom: 0.8rem;
-    font-size: 1.1rem;
-}
-
-.form input:focus {
-    border: 1.9px solid #1877f2;
-}
-
-.form .btnLogin {
-    outline: none;
-    border: none;
-    padding: 0.01rem 1rem;
-    border-radius: 0.2rem;
-    font-size: 1.1rem;
+    margin-inline: auto;
+    text-align: center;
+    padding: 0.8rem 0.2rem;
+    margin-bottom: 0.05rem;
+    font-size: 1rem;
 }
 
 .form a {
-    text-decoration: none;
+    margin-inline: 4rem;
     text-align: center;
-    font-size: 0.7rem;
-    padding: 0.01rem 1rem;
+    align-items: auto;
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
     color: #1877f2;
 }
 
-.form hr {
-    background: #f7f7f7;
-    margin: 0.7rem;
+.form .btnLogin {
+    margin-inline: auto;
+    outline: none;
+    border: none;
+    padding: 0.07rem 8.1rem;
+    border-radius: 0.2rem;
+    font-size: 1.1rem;
+}
+
+
+.form .btnGoogle {
+    margin-inline: auto;
+    outline: none;
+    border: none;
+    line-height: 0.5rem;
+    padding: 1rem 3.3rem;
+    border-radius: 0.2rem;
+    font-size: 1rem;
+}
+
+.form .btnFacebook {
+    margin-inline: auto;
+    outline: none;
+    border: none;
+    line-height: 0.5rem;
+    padding: 1rem 2.8rem;
+    border-radius: 0.2rem;
+    font-size: 1rem;
+}
+
+.invalid-feedback {
+    max-width: 700px;
+    padding: 50px;
+    transform-origin: left top;
+    -webkit-transform-origin: left top;
+  
 }
 
 .form .create-account {
+    margin-inline: auto;
     outline: none;
     border: none;
     background: #06b909;
-    padding: 0.5rem 1rem;
+    padding: 0.6rem 6.6rem;
     border-radius: 0.2rem;
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: #fff;
 }
 
@@ -97,12 +134,16 @@
     cursor: pointer;
 }
 
-
-
 @media (max-width: 500px) {
     html {
         font-size: 60%;
     }
+
+    .form-wrapper {
+        width: 100%;
+        margin: 0;
+        text-align: center;
+      }
 
     .name-content {
         margin: 0;
@@ -142,6 +183,12 @@
         font-size: 60%;
     }
 
+    .form-wrapper {
+        width: 100%;
+        margin: 0;
+        text-align: center;
+      }
+
     .name-content {
         margin: 0;
         text-align: center;
@@ -180,6 +227,12 @@
         font-size: 60%;
     }
 
+    .form-wrapper {
+        width: 100%;
+        margin: 0;
+        text-align: center;
+      }
+
     .name-content {
         margin: 0;
         text-align: center;
@@ -211,10 +264,10 @@
         display: flex;
         flex-direction: column;
     }
+}
 
-    @media (orientation: landscape) and (max-height: 500px) {
-        .form-wrapper {
-            height: 90vmax;
-        }
+@media (orientation: landscape) and (max-height: 500px) {
+    .form-wrapper {
+        height: 90vmax;
     }
 }
