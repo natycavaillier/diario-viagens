@@ -8,5 +8,8 @@ export const environment = {
     authDomain: 'diario-viagens-c4d6b.firebaseapp.com',
     messagingSenderId: '45382860833',
   },
-  production: true
+  production: true,
+  recaptcha: {
+    siteKey: '6LedT20gAAAAAF1jI74wuPQZ_tInQ_0DJNpWo8Vq'
+  },
 };
