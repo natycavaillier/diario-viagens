@@ -1,11 +1,9 @@
-import { User } from '@angular/fire/auth';
-import { ProfileUser } from './../../models/user-profile';
 import { Injectable } from '@angular/core';
 import {
   collectionData,
   docData,
   Firestore,
-  setDoc,
+  orderBy,
   where,
 } from '@angular/fire/firestore';
 import {
@@ -16,10 +14,9 @@ import {
   query,
   updateDoc,
 } from '@firebase/firestore';
-import { first, from, Observable, switchMap, tap } from 'rxjs';
+import { first, from, Observable, switchMap } from 'rxjs';
 import { Diario, DiarioConverter } from '../../models/diario';
 import { AuthService } from '../auth/auth.service';
-import { UploadService } from '../upload/upload.service';
 
 @Injectable({
   providedIn: 'root',
@@ -27,9 +24,7 @@ import { UploadService } from '../upload/upload.service';
 export class DiariosService {
   constructor(
     private db: Firestore,
-    private authService: AuthService,
-    private uploadService: UploadService,
-
+    private authService: AuthService
   ) {}
 
 
@@ -37,7 +32,7 @@ export class DiariosService {
 
   getTodosDiarios(): Observable<Diario[]> {
 
-    return collectionData(this.diarios, { idField: 'id' });
+    return collectionData(query(this.diarios, orderBy('createdAt', 'desc')), { idField: 'id' });
   }
 
   atualizaFoto(): Observable<Diario[]> {
