@@ -16,7 +16,6 @@ import { DiariosModule } from './diarios/diarios.module';
 import { NgChartsModule } from 'ng2-charts';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { provideDatabase,getDatabase } from '@angular/fire/database';
-import { HomeModule } from './home/home.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
@@ -33,7 +32,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     CoreModule,
     AuthModule, 
     DiariosModule,
-    HomeModule,
   
     HotToastModule.forRoot({
       position: 'bottom-center',

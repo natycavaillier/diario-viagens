@@ -1,8 +1,10 @@
+@import '~bootstrap/scss/bootstrap';
 
 html,
 body {
   height: 100%;
 }
+
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -30,20 +32,61 @@ form {
 
 .diarioNaoCurtido {
   font-variation-settings:
-      'FILL' 0,
-      'wght' 400,
-      'GRAD' 0,
-      'opsz' 48
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48
 }
 
 .diarioCurtido {
   font-variation-settings:
-      'FILL' 1,
-      'wght' 400,
-      'GRAD' 0,
-      'opsz' 48
+    'FILL' 1,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48
 }
 
-@import '~bootstrap/scss/bootstrap';
-/* Importing Bootstrap SCSS file. */
-@import '~bootstrap/scss/bootstrap';
+.fullscreen-dialog .mat-dialog-container {
+  padding: 0px !important;
+  min-height: 680px;
+  max-height: 680px;
+}
+
+@media (max-width: 768px) {
+  .fullscreen-dialog .mat-dialog-container {
+    min-height: 560px;
+    max-height: 560px;
+  }
+}
+
+@media (min-width: 992px) {
+  .fullscreen-dialog .mat-dialog-container {
+    min-height: 600px;
+    max-height: 600px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .fullscreen-dialog .mat-dialog-container {
+    min-height: 650px;
+    max-height: 650px;
+  }
+}
+
+@media (min-width: 1500px) {
+  .fullscreen-dialog .mat-dialog-container {
+    min-height: 800px;
+    max-height: 800px;
+  }
+}
+
+
+@media (min-width: 2500px) {
+  .fullscreen-dialog .mat-dialog-container {
+    min-height: 1000px;
+    max-height: 1000px;
+    max-width: 1500px;
+    min-width: 1500px;
+    margin: auto;
+  }
+}
