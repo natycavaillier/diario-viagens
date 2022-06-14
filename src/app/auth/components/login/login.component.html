@@ -3,167 +3,77 @@
     <div class="content">
       <div class="flex-div">
         <div class="name-content">
-          <h1 class="logo">Login</h1>
-          <p>Seja bem-vindo(a) de volta!</p>
-          <p>
+          <h1 class="logo">Login...</h1><br>
+          <p>Seja bem-vindo(a) de volta!<br>
             Conecte-se com amigos e tenha um mundo de recordações ao seu redor
-            no Diários.
+            no Diários Viagens.
           </p>
         </div>
-        <div class="form">
-          <mat-form-field appearance="legacy">
-            <mat-label>Email</mat-label>
-            <input
-              matInput
-              placeholder="Seu email"
-              formControlName="email"
-              required
-            />
-            <mat-error *ngIf="loginForm.get('email')?.errors?.['required']"
-              >Campo obrigatório</mat-error
-            >
-            <mat-error *ngIf="loginForm.get('email')?.errors?.['email']"
-              >Email inválido</mat-error
-            >
-            <mat-icon matPrefix>person</mat-icon>
-          </mat-form-field>
-          <mat-form-field>
-            <mat-label>Senha</mat-label>
-            <input
-              matInput
-              [type]="hide ? 'password' : 'text'"
-              placeholder="Sua senha"
-              formControlName="senha"
-              type="password"
-              required
-            />
-            <button
-              mat-icon-button
-              matSuffix
-              (click)="hide = !hide"
-              [attr.aria-label]="'Hide password'"
-              [attr.aria-pressed]="hide"
-            >
-              <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+        <div class="container">
+          <div class="form">
+            <mat-form-field class="mat-form-field" appearance="legacy">
+              <mat-label>Email</mat-label>
+              <input matInput placeholder="Seu email" formControlName="email" required />
+              <mat-error *ngIf="loginForm.get('email')?.errors?.['required']">Campo obrigatório</mat-error>
+              <mat-error *ngIf="loginForm.get('email')?.errors?.['email']">Email inválido</mat-error>
+              <mat-icon matPrefix>person</mat-icon>
+            </mat-form-field>
+            <mat-form-field class="mat-form-field" appearance="legacy">
+              <mat-label>Senha</mat-label>
+              <input matInput [type]="hide ? 'password' : 'text'" placeholder="Sua senha" formControlName="senha"
+                type="password" required />
+              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide">
+                <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+              </button>
+              <mat-error *ngIf="loginForm.get('senha')?.errors?.['required']">Campo obrigatório</mat-error>
+              <mat-error *ngIf="loginForm.get('senha')?.errors?.['minlength']">O mínimo são 8 caracteres
+              </mat-error>
+              <mat-icon matPrefix>key</mat-icon>
+            </mat-form-field><br>
+            <a routerLink="/recuperar-senha">Esqueci minha senha</a>
+            <button mat-raised-button color="primary" class="btnLogin" [disabled]="loginForm.invalid"
+              (click)="onSubmit()">
+              Login
             </button>
-            <mat-error *ngIf="loginForm.get('senha')?.errors?.['required']"
-              >Campo obrigatório</mat-error
-            >
-            <mat-error *ngIf="loginForm.get('senha')?.errors?.['minlength']"
-              >O mínimo são 8 caracteres
-            </mat-error>
-            <mat-icon matPrefix>key</mat-icon>
-          </mat-form-field>
-          <a routerLink="/recuperar-senha">Esqueci minha senha</a>
-          <br />
-          <button
-            mat-raised-button
-            color="primary"
-            class="btnLogin"
-            [disabled]="loginForm.invalid"
-            (click)="onSubmit()"
-          >
-            Login
-          </button>
-          <hr />
-
-          <form #form="ngForm">
-            <div class="row mt-3">
-              <div class="col-sm-12 mb-2">
-                <re-captcha
-                  id="recaptcha"
-                  name="recaptcha"
-                  #recaptcha="ngModel"
-                  [(ngModel)]="token"
-                  required
-                  [class.is-invalid]="
-                    recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)
-                  "
-                ></re-captcha>
-                <div
-                  *ngIf="
-                    recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)
-                  "
-                  class="invalid-feedback"
-                >
-                  <div *ngIf="recaptcha.errors?.['required']">
-                    Recaptcha Requerido
-                  </div>
+            <form #form="ngForm">
+              <div class="row mt-1">
+                <div class="col-sm-12 mb-1">
+                  <re-captcha id="recaptcha" name="recaptcha" #recaptcha="ngModel" [(ngModel)]="token" required
+                    [class.is-invalid]="
+                    recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)">
+                  </re-captcha>
                 </div>
               </div>
-            </div>
-          </form>
-
-          <button
-            [disabled]="recaptcha.invalid"
-            (click)="onLoginGoogle()"
-            type="button"
-            mat-raised-button
-            color="warn"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              fill="currentColor"
-              class="bi bi-google"
-              viewBox="0 0 20 20"
-            >
-              <path
-                d="M15.545 6.558a9.42 9.42 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.689 7.689 0 0 1 5.352 2.082l-2.284 2.284A4.347 4.347 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.792 4.792 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.702 3.702 0 0 0 1.599-2.431H8v-3.08h7.545z"
-              />
-            </svg>
-            Fazer Login com Google
-          </button>
-
-          <br />
-          <button
-            [disabled]="recaptcha.invalid"
-            (click)="onLoginFacebook()"
-            type="button"
-            mat-raised-button
-            color="primary"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              fill="currentColor"
-              class="bi bi-facebook"
-              viewBox="0 0 20 20"
-            >
-              <path
-                d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"
-              />
-            </svg>
-            Fazer Login com Facebook
-          </button>
-          <br />
-          <button class="create-account" routerLink="/cadastro">
-            Criar nova Conta
-          </button>
+            </form>
+            <P>
+              <button [disabled]="recaptcha.invalid" class="btnGoogle" (click)="onLoginGoogle()" type="button"
+                mat-raised-button color="warn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-google"
+                  viewBox="0 0 20 20">
+                  <path
+                    d="M15.545 6.558a9.42 9.42 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.689 7.689 0 0 1 5.352 2.082l-2.284 2.284A4.347 4.347 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.792 4.792 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.702 3.702 0 0 0 1.599-2.431H8v-3.08h7.545z" />
+                </svg>
+                Fazer Login com Google
+              </button>
+            </P>
+            <P>
+              <button [disabled]="recaptcha.invalid" class="btnFacebook" (click)="onLoginFacebook()" type="button"
+                mat-raised-button color="primary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                  class="bi bi-facebook" viewBox="0 0 20 20">
+                  <path
+                    d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z" />
+                </svg>
+                Fazer Login com Facebook
+              </button>
+            </P>
+            <button class="create-account" routerLink="/cadastro">
+              Criar Conta
+            </button>
+          </div>
         </div>
       </div>
     </div>
   </form>
 </div>
-
-<!-- <div class="container-fluid py-3">
-  <h1>Angular Google reCAPTCHA v2</h1>
-
-  <form #form="ngForm">
-    <div class="row mt-3">
-      <div class="col-sm-12 mb-2">
-        <re-captcha id="recaptcha" name="recaptcha" #recaptcha="ngModel" [(ngModel)]="token" required [class.is-invalid]="recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)"></re-captcha>
-        <div *ngIf="recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)" class="invalid-feedback">
-          <div *ngIf="recaptcha.errors?.['required']">This field is required.</div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-sm-12 mb-2">
-        <button type="button" class="btn btn-sm btn-primary" (click)="send(form)">Send</button>
-      </div>
-    </div>
-  </form>
-  </div> -->
