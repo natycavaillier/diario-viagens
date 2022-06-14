@@ -10,6 +10,7 @@ import { DiarioDetailComponent } from './components/diario-detail/diario-detail.
 import { DiarioEditComponent } from './components/diario-edit/diario-edit.component';
 import { DiarioListComponent } from './components/diario-list/diario-list.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { PoliticaComponent } from './components/politica/politica.component';
 
 
 
@@ -18,7 +19,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     DiarioAddComponent,
     DiarioDetailComponent,
     DiarioEditComponent,
-    DiarioListComponent
+    DiarioListComponent,
+    PoliticaComponent
   ],
   imports: [
     CommonModule,
