@@ -1,7 +1,7 @@
 <main>
   <div class="container" id="profile-upper" *ngIf="user$ | async as user">
     <div id="profile-banner-image">
-      <img src="http://leoaraujo.com/wp-content/uploads/2020/01/soul-code.jpg" alt="Banner image" />
+      <img src="assets/img/capa.jpg" alt="Banner image" />
     </div>
 
     <div id="profile-d">
@@ -10,7 +10,7 @@
 
         <input #inputField hidden type="file" (change)="uploadImage($event, user)" />
       </div>
-      <div *ngIf="users$ | async as user" id="u-name">{{ user.nome }}</div>
+      <div style="text-shadow: 4px 4px 5px #000" *ngIf="users$ | async as user" id="u-name">{{ user.nome }}</div>
     </div>
 
     <div id="black-grd"></div>
@@ -46,7 +46,7 @@
         </div>
 
         <div id="t-box">
-          <a href="#">Termo de Privacidade</a>
+          <a target="_blank" routerLink="/politica-privacidade" >Termo de Privacidade</a>
         </div>
       </div>
 
@@ -63,12 +63,12 @@
               <button (click)="onClickAdd()">
                 <div class="td">
                   <i class="material-icons">camera_enhance</i>
-                  <span>Enviar Foto</span>
+                  <span>Enviar Diário</span>
                 </div>
               </button>
             </div>
           </div>
-          <div id="c-c-main">
+          <!-- <div id="c-c-main">
             <div class="tb">
               <div class="td" id="p-c-i" *ngIf="user$ | async as user">
                 <img [src]="user.photoURL" alt="Profile pic" />
@@ -80,7 +80,7 @@
             <div id="insert_emoji">
               <i class="material-icons">insert_emoticon</i>
             </div>
-          </div>
+          </div> -->
         </div>
 
         <mat-tab-group mat-align-tabs="center">
