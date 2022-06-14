@@ -11,7 +11,7 @@ export const environment = {
   },
   production: false,
   recaptcha: {
-    siteKey: '6LfKNi0cAAAAACeYwFRY9_d_qjGhpiwYUo5gNW5-',
+    siteKey: '6LedT20gAAAAAF1jI74wuPQZ_tInQ_0DJNpWo8Vq'
   },
 };
 

@@ -1,16 +1,8 @@
 <mat-toolbar [ngStyle]="{'background-color': cor}">
-  <!-- <a
-    mat-button
-    routerLink="/diarios"
-    matTooltip="ir para página principal"
-    matTooltipPosition="below"
-    matTooltipShowDelay="1000"
-  > -->
   <button  matTooltip="ir para página principal" mat-icon-button>
     <mat-icon>airlines</mat-icon>
   </button>
   <a routerLink="/diarios">Best Travel</a>
-    <!-- </a> -->
   <span class="spacer"></span>
   <div *ngIf="logged$ | async as login; else unlogged" class="link-area">
     <a
